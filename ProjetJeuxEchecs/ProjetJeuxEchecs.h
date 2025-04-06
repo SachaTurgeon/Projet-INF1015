@@ -2,6 +2,7 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_ProjetJeuxEchecs.h"
+#include <QGridLayout>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class ProjetJeuxEchecsClass; };
@@ -17,4 +18,6 @@ public:
 
 private:
     Ui::ProjetJeuxEchecsClass *ui;
+    void setup();
+    void setGrid(QGridLayout* grid);
 };
