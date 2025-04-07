@@ -28,7 +28,7 @@ void ProjetJeuxEchecs::setGrid(QGridLayout* grid)
     int gridSize = 8;
 
     for (int row = 0; row < gridSize; row++) {
-        for (int col = 0; col < gridSize; col++) {
+        for (int col =   0; col < gridSize; col++) {
             bool isEven = (row + col) % 2 == 0;
             ChessSquare* box = new ChessSquare(isEven, this);
             grid->addWidget(box, row, col);

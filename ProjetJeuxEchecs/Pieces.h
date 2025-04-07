@@ -2,13 +2,13 @@
 
 #include <utility>
 #include <vector>
+#include <QWidget>
 
-class Piece
+class Piece: public QWidget
 {
 public:
-	Piece() = default;
-	Piece(std::pair<int, int> position, bool isWhite) : position_(position), isWhite_(isWhite) {};
-	virtual std::vector<std::pair<int, int>> calculateMoves() {}
+	Piece(std::pair<int, int> position, bool isWhite, QWidget* parent = nullptr);
+	virtual std::vector<std::pair<int, int>> calculateMoves() {return {};}
 private:
 	std::pair<int, int> position_;
 	bool isWhite_;
