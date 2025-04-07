@@ -13,7 +13,7 @@
 // - Le projet est configuré pour utiliser le compilateur MSVC 2022, vous pouvez le changer dans les properties du projet.
 
 #include "ProjetJeuxEchecs.h"
-#include <QtWidgets/QApplication> //allo
+#include <QtWidgets/QApplication>
 
 #if __has_include("bibliotheque_cours.hpp")
 #include "bibliotheque_cours.hpp"
