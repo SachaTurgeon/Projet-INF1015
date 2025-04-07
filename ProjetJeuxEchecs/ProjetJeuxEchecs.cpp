@@ -1,4 +1,5 @@
 ﻿#include "ProjetJeuxEchecs.h"
+#include "Pieces.h"
 #include <QGridLayout>
 #include <QWidget>
 #include <QPalette>
@@ -18,6 +19,8 @@ public:
         this->setPalette(pal);
         this->setFixedSize(75, 75);
     }
+
+    Piece* piece = nullptr;
 };
 
 void ProjetJeuxEchecs::setGrid(QGridLayout* grid)
