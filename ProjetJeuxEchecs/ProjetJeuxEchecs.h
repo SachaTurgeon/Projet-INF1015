@@ -13,7 +13,7 @@ QT_END_NAMESPACE
 class ChessSquare : public QWidget {
 public:
     ChessSquare(std::pair<int, int> pos, QWidget* parent = nullptr);
-
+    void addPiece(Piece* piece);
     std::pair<int, int> getPos() { return pos_; }
 
 private:

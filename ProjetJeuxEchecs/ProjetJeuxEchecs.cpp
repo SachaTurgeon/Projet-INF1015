@@ -19,6 +19,14 @@
     this->setFixedSize(75, 75);
  }
 
+void ChessSquare::addPiece(Piece* piece) {
+    int offsetX = (width() - piece->width()) / 2;
+    int offsetY = (height() - piece->height()) / 2;
+    piece->move(offsetX, offsetY);
+    piece->setParent(this);
+    piece_ = piece;
+ }
+
 void ProjetJeuxEchecs::setGrid(QGridLayout* grid)
 {
     grid->setSpacing(0);
@@ -32,6 +40,10 @@ void ProjetJeuxEchecs::setGrid(QGridLayout* grid)
             ChessSquare* square = new ChessSquare(std::make_pair(row, col), this);
             grid->addWidget(square, row, col);
             squaresVector[row][col] = square;
+            if ((row == 3) && (col == 2)) {
+                Piece* piece = new Piece(std::make_pair(row, col), true, this);
+                square->addPiece(piece);
+            }
         }
     } 
 }
