@@ -4,24 +4,20 @@
 #include <QWidget>
 #include <QPalette>
 #include <QColor>
+#include <utility>
 
-class ChessSquare : public QWidget {
-public:
-    ChessSquare(bool isEven, QWidget* parent = nullptr) : QWidget(parent) {
-        QPalette pal = this->palette();
-        if (isEven) {
-            pal.setColor(QPalette::Window, QColor(227, 193, 111));
-        }
-        else {
-            pal.setColor(QPalette::Window, QColor(184, 139, 74));
-        }
-        this->setAutoFillBackground(true);
-        this->setPalette(pal);
-        this->setFixedSize(75, 75);
+ ChessSquare::ChessSquare(std::pair<int, int> pos, QWidget* parent) : QWidget(parent), pos_(pos) {
+    QPalette pal = this->palette();
+    if ((pos_.first + pos_.second) % 2 == 0) {
+        pal.setColor(QPalette::Window, QColor(227, 193, 111));
     }
-
-    Piece* piece = nullptr;
-};
+    else {
+        pal.setColor(QPalette::Window, QColor(184, 139, 74));
+    }
+    this->setAutoFillBackground(true);
+    this->setPalette(pal);
+    this->setFixedSize(75, 75);
+ }
 
 void ProjetJeuxEchecs::setGrid(QGridLayout* grid)
 {
@@ -29,12 +25,13 @@ void ProjetJeuxEchecs::setGrid(QGridLayout* grid)
     grid->setContentsMargins(0, 0, 0, 0);
 
     int gridSize = 8;
+    squaresVector.resize(8, std::vector<ChessSquare*>(8, nullptr));
 
     for (int row = 0; row < gridSize; row++) {
         for (int col =   0; col < gridSize; col++) {
-            bool isEven = (row + col) % 2 == 0;
-            ChessSquare* box = new ChessSquare(isEven, this);
-            grid->addWidget(box, row, col);
+            ChessSquare* square = new ChessSquare(std::make_pair(row, col), this);
+            grid->addWidget(square, row, col);
+            squaresVector[row][col] = square;
         }
     } 
 }
