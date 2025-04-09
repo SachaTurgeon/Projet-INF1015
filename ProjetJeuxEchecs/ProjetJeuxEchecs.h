@@ -10,15 +10,18 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class ProjetJeuxEchecsClass; };
 QT_END_NAMESPACE
 
-class ChessSquare : public QWidget {
+class ChessSquare : public QWidget
+{
+    Q_OBJECT
+
 public:
-    ChessSquare(std::pair<int, int> pos, QWidget* parent = nullptr);
+    ChessSquare(std::pair<int, int> position, QWidget* parent = nullptr);
     void addPiece(Piece* piece);
-    std::pair<int, int> getPos() { return pos_; }
+    std::pair<int, int> getPosition() { return position_; }
 
 private:
     Piece* piece_ = nullptr;
-    std::pair<int, int> pos_;
+    std::pair<int, int> position_;
 };
 
 class ProjetJeuxEchecs : public QMainWindow

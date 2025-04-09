@@ -16,10 +16,16 @@ Piece::Piece(std::pair<int, int> position, bool isWhite, QWidget* parent) : QWid
 
 void Piece::mousePressEvent(QMouseEvent* event)
 {
-    if (event->button() == Qt::LeftButton) {
+    if (event->button() == Qt::LeftButton && !isDragging_) {
         offset_ = event->pos();
         isDragging_ = true;
         setCursor(Qt::ClosedHandCursor);
+
+        QPoint globalPos = mapToGlobal(pos());
+        setParent(parentWidget()->parentWidget());
+        QPoint relativePos = mapFromGlobal(globalPos);
+        move(relativePos);
+        show();
     }
 }
 

@@ -1,14 +1,15 @@
 ﻿#include "ProjetJeuxEchecs.h"
 #include "Pieces.h"
 #include <QGridLayout>
+#include <QVBoxLayout>
 #include <QWidget>
 #include <QPalette>
 #include <QColor>
 #include <utility>
 
- ChessSquare::ChessSquare(std::pair<int, int> pos, QWidget* parent) : QWidget(parent), pos_(pos) {
+ ChessSquare::ChessSquare(std::pair<int, int> position, QWidget* parent) : QWidget(parent), position_(position) {
     QPalette pal = this->palette();
-    if ((pos_.first + pos_.second) % 2 == 0) {
+    if ((position_.first + position_.second) % 2 == 0) {
         pal.setColor(QPalette::Window, QColor(227, 193, 111));
     }
     else {
@@ -24,6 +25,7 @@ void ChessSquare::addPiece(Piece* piece) {
     int offsetY = (height() - piece->height()) / 2;
     piece->move(offsetX, offsetY);
     piece->setParent(this);
+    piece->setPosition(getPosition());
     piece_ = piece;
     this->update();
  }
@@ -34,15 +36,15 @@ void ProjetJeuxEchecs::setGrid(QGridLayout* grid)
     grid->setContentsMargins(0, 0, 0, 0);
 
     int gridSize = 8;
-    squaresVector.resize(8, std::vector<ChessSquare*>(8, nullptr));
+    squaresVector.resize(gridSize, std::vector<ChessSquare*>(gridSize, nullptr));
 
     for (int row = 0; row < gridSize; row++) {
         for (int col =   0; col < gridSize; col++) {
-            ChessSquare* square = new ChessSquare(std::make_pair(row, col), this);
+            ChessSquare* square = new ChessSquare(std::make_pair(row, col), grid->parentWidget());
             grid->addWidget(square, row, col);
             squaresVector[row][col] = square;
             if ((row == 5) && (col == 1) || (row == 2) && (col == 1)) {
-                Piece* piece = new Piece(std::make_pair(row, col), true, this);
+                Piece* piece = new Piece(std::make_pair(row, col), true);
                 square->addPiece(piece);
             }
         }
@@ -50,11 +52,16 @@ void ProjetJeuxEchecs::setGrid(QGridLayout* grid)
 }
 
 void ProjetJeuxEchecs::setup() {
-    QGridLayout* grid = new QGridLayout();
+    QWidget* chessBoard = new QWidget(this);
+    QGridLayout* grid = new QGridLayout(chessBoard);
     setGrid(grid);
+    chessBoard->setLayout(grid);
+
+    QVBoxLayout* mainLayout = new QVBoxLayout();
+    mainLayout->addWidget(chessBoard);
 
     QWidget* centralWidget = new QWidget(this);
-    centralWidget->setLayout(grid);
+    centralWidget->setLayout(mainLayout);
     setCentralWidget(centralWidget);
 }
 

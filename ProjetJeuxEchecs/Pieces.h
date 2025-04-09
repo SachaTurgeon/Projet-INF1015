@@ -6,8 +6,11 @@
 
 class Piece: public QWidget
 {
+	Q_OBJECT
+
 public:
 	Piece(std::pair<int, int> position, bool isWhite, QWidget* parent = nullptr);
+	void setPosition(std::pair<int, int> position) { position_ = position; }
 	virtual std::vector<std::pair<int, int>> calculateMoves() {return {};}
 	void mousePressEvent(QMouseEvent* event) override;
 	void mouseMoveEvent(QMouseEvent* event) override;
