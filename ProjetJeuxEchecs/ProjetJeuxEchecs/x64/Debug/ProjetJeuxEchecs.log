@@ -1,13 +1,4 @@
 ﻿   Qt/MSBuild: 3.3.1.1
    Qt: 6.8.3
-  moc ProjetJeuxEchecs.h
   ProjetJeuxEchecs.cpp
-  main.cpp
-C:\Users\sacha\Downloads\école\INF1015\Projet\Projet-INF1015\ProjetJeuxEchecs\ProjetJeuxEchecs.cpp(37,74): warning C4100: 'isWhite': unreferenced formal parameter
-      C:\Users\sacha\Downloads\école\INF1015\Projet\Projet-INF1015\ProjetJeuxEchecs\ProjetJeuxEchecs.cpp(37,74):
-      the template instantiation context (the oldest one first) is
-          C:\Users\sacha\Downloads\école\INF1015\Projet\Projet-INF1015\ProjetJeuxEchecs\ProjetJeuxEchecs.cpp(65,17):
-          see reference to function template instantiation 'void ProjetJeuxEchecs::addPieceToGrid<Piece>(std::pair<int,int>,bool,ChessSquare *)' being compiled
-  
-  moc_ProjetJeuxEchecs.cpp
   ProjetJeuxEchecs.vcxproj -> C:\Users\sacha\Downloads\école\INF1015\Projet\Projet-INF1015\ProjetJeuxEchecs\x64\Debug\ProjetJeuxEchecs.exe

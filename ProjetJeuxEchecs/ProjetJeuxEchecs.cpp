@@ -6,7 +6,6 @@
 #include <QPalette>
 #include <QColor>
 #include <utility>
-#include <iostream>
 #include <string>
 
  ChessSquare::ChessSquare(std::pair<int, int> position, QWidget* parent) : QWidget(parent), position_(position) {
@@ -35,7 +34,7 @@ void ChessSquare::addPiece(Piece* piece) {
 
 template <typename T>
 void ProjetJeuxEchecs::addPieceToGrid(std::pair<int, int> position, bool isWhite, ChessSquare* square) {
-    T* piece = new T(position, true);
+    T* piece = new T(position, isWhite);
     connect(piece, &Piece::pieceRemove, this, &ProjetJeuxEchecs::onPieceRemove);
     connect(piece, &Piece::pieceSet, this, &ProjetJeuxEchecs::onPieceSet);
     square->addPiece(piece);
@@ -61,8 +60,41 @@ void ProjetJeuxEchecs::setGrid(QGridLayout* grid) {
             ChessSquare* square = new ChessSquare(std::make_pair(row, col), grid->parentWidget());
             grid->addWidget(square, row, col);
             squaresVector[row][col] = square;
-            if ((row == 5) && (col == 1) || (row == 2) && (col == 1)) {
-                addPieceToGrid<Piece>(std::make_pair(row, col), true, square);
+            if (row == 6) {
+                addPieceToGrid<Pawn>(std::make_pair(row, col), true, square);
+            }
+            else if (row == 1){
+                addPieceToGrid<Pawn>(std::make_pair(row, col), false, square);
+            }
+            else if ((row == 7) && (col == 0 || col == 7)) {
+                addPieceToGrid<Rook>(std::make_pair(row, col), true, square);
+            }
+            else if ((row == 0) && (col == 0 || col == 7)) {
+                addPieceToGrid<Rook>(std::make_pair(row, col), false, square);
+            }
+            else if ((row == 7) && (col == 1 || col == 6)) {
+                addPieceToGrid<Knight>(std::make_pair(row, col), true, square);
+            }
+            else if ((row == 0) && (col == 1 || col == 6)) {
+                addPieceToGrid<Knight>(std::make_pair(row, col), false, square);
+            }
+            else if ((row == 7) && (col == 2 || col == 5)) {
+                addPieceToGrid<Bishop>(std::make_pair(row, col), true, square);
+            }
+            else if ((row == 0) && (col == 2 || col == 5)) {
+                addPieceToGrid<Bishop>(std::make_pair(row, col), false, square);
+            }
+            else if ((row == 7) && (col == 3)) {
+                addPieceToGrid<Queen>(std::make_pair(row, col), true, square);
+            }
+            else if ((row == 0) && (col == 3)) {
+                addPieceToGrid<Queen>(std::make_pair(row, col), false, square);
+            }
+            else if ((row == 7) && (col == 4)) {
+                addPieceToGrid<King>(std::make_pair(row, col), true, square);
+            }
+            else if ((row == 0) && (col == 4)) {
+                addPieceToGrid<King>(std::make_pair(row, col), false, square);
             }
         }
     } 

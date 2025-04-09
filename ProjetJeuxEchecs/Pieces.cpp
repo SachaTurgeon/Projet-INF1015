@@ -6,15 +6,20 @@
 #include <QMouseEvent>
 #include <QTimer>
 #include <algorithm>
+#include <QLabel>
+#include <QPixmap>
 
 Piece::Piece(std::pair<int, int> position, bool isWhite, QWidget* parent) :
     QWidget(parent), position_(position), isWhite_(isWhite) {
-	this->setFixedSize(50, 50);
-	QPalette pal = this->palette();
-	pal.setColor(QPalette::Window, QColor(255, 0, 0));
-	this->setAutoFillBackground(true);
-	this->setPalette(pal);
+    setFixedSize(70, 70);
+    imageLabel_ = new QLabel(this);
 };
+
+void Piece::showPieceImage(const QString& imageFile) {
+    QPixmap pixmap(imageFile);
+    imageLabel_->setPixmap(pixmap.scaled(70, 70, Qt::KeepAspectRatio));
+    imageLabel_->setAlignment(Qt::AlignCenter);
+}
 
 void Piece::mousePressEvent(QMouseEvent* event) {
     if (event->button() == Qt::LeftButton) {
@@ -66,9 +71,67 @@ void Piece::mouseReleaseEvent(QMouseEvent* event) {
 }
 
 Pawn::Pawn(std::pair<int, int> position, bool isWhite, QWidget* parent) :
-    Piece(position, isWhite, parent) {}
+    Piece(position, isWhite, parent) {
+    QString imageFile = isWhite ? "pieces-basic-png/white-pawn.png" : "pieces-basic-png/black-pawn.png";
+    showPieceImage(imageFile);
+}
 
 std::vector<std::pair<int, int>> Pawn::calculateMoves() {
 	std::vector<std::pair<int, int>> moves;
 	return moves;
+}
+
+Knight::Knight(std::pair<int, int> position, bool isWhite, QWidget* parent) :
+    Piece(position, isWhite, parent) {
+    QString imageFile = isWhite ? "pieces-basic-png/white-knight.png" : "pieces-basic-png/black-knight.png";
+    showPieceImage(imageFile);
+}
+
+std::vector<std::pair<int, int>> Knight::calculateMoves() {
+    std::vector<std::pair<int, int>> moves;
+    return moves;
+}
+
+Bishop::Bishop(std::pair<int, int> position, bool isWhite, QWidget* parent) :
+    Piece(position, isWhite, parent) {
+    QString imageFile = isWhite ? "pieces-basic-png/white-bishop.png" : "pieces-basic-png/black-bishop.png";
+    showPieceImage(imageFile);
+}
+
+std::vector<std::pair<int, int>> Bishop::calculateMoves() {
+    std::vector<std::pair<int, int>> moves;
+    return moves;
+}
+
+Rook::Rook(std::pair<int, int> position, bool isWhite, QWidget* parent) :
+    Piece(position, isWhite, parent) {
+    QString imageFile = isWhite ? "pieces-basic-png/white-rook.png" : "pieces-basic-png/black-rook.png";
+    showPieceImage(imageFile);
+}
+
+std::vector<std::pair<int, int>> Rook::calculateMoves() {
+    std::vector<std::pair<int, int>> moves;
+    return moves;
+}
+
+Queen::Queen(std::pair<int, int> position, bool isWhite, QWidget* parent) :
+    Piece(position, isWhite, parent) {
+    QString imageFile = isWhite ? "pieces-basic-png/white-queen.png" : "pieces-basic-png/black-queen.png";
+    showPieceImage(imageFile);
+}
+
+std::vector<std::pair<int, int>> Queen::calculateMoves() {
+    std::vector<std::pair<int, int>> moves;
+    return moves;
+}
+
+King::King(std::pair<int, int> position, bool isWhite, QWidget* parent) :
+    Piece(position, isWhite, parent) {
+    QString imageFile = isWhite ? "pieces-basic-png/white-king.png" : "pieces-basic-png/black-king.png";
+    showPieceImage(imageFile);
+}
+
+std::vector<std::pair<int, int>> King::calculateMoves() {
+    std::vector<std::pair<int, int>> moves;
+    return moves;
 }
