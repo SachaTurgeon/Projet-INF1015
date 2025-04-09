@@ -2,9 +2,9 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_ProjetJeuxEchecs.h"
+#include "Pieces.h"
 #include <QGridLayout>
 #include <vector>
-#include "Pieces.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class ProjetJeuxEchecsClass; };
@@ -16,6 +16,7 @@ class ChessSquare : public QWidget
 
 public:
     ChessSquare(std::pair<int, int> position, QWidget* parent = nullptr);
+    void setPieceNull() { piece_ = nullptr; }
     void addPiece(Piece* piece);
     std::pair<int, int> getPosition() { return position_; }
 
@@ -33,6 +34,10 @@ public:
     ~ProjetJeuxEchecs();
 
     std::vector<std::vector<ChessSquare*>> squaresVector;
+
+private slots:
+    void onPieceRemove(Piece* piece);
+    void onPieceSet(Piece* piece, std::pair<int, int> newPosition);
 
 private:
     Ui::ProjetJeuxEchecsClass *ui;

@@ -1,5 +1,4 @@
 #include "Pieces.h"
-#include "ProjetJeuxEchecs.h"
 #include <QWidget>
 #include <utility>
 #include <vector>
@@ -7,7 +6,8 @@
 #include <QMouseEvent>
 #include <QTimer>
 
-Piece::Piece(std::pair<int, int> position, bool isWhite, QWidget* parent) : QWidget(parent), position_(position), isWhite_(isWhite) {
+Piece::Piece(std::pair<int, int> position, bool isWhite, QWidget* parent) :
+    QWidget(parent), position_(position), isWhite_(isWhite) {
 	this->setFixedSize(50, 50);
 	QPalette pal = this->palette();
 	pal.setColor(QPalette::Window, QColor(255, 0, 0));
@@ -15,9 +15,8 @@ Piece::Piece(std::pair<int, int> position, bool isWhite, QWidget* parent) : QWid
 	this->setPalette(pal);
 };
 
-void Piece::mousePressEvent(QMouseEvent* event)
-{
-    if (event->button() == Qt::LeftButton && !isDragging_) {
+void Piece::mousePressEvent(QMouseEvent* event) {
+    if (event->button() == Qt::LeftButton) {
         offset_ = event->pos();
         isDragging_ = true;
         setCursor(Qt::ClosedHandCursor);
@@ -29,28 +28,31 @@ void Piece::mousePressEvent(QMouseEvent* event)
         show();
 
         grabMouse();
+
+        emit pieceRemove(this);
     }
 }
 
-void Piece::mouseMoveEvent(QMouseEvent* event)
-{
+void Piece::mouseMoveEvent(QMouseEvent* event) {
     if (isDragging_) {
         QPoint parentPos = parentWidget()->mapFromGlobal(event->globalPosition().toPoint());
         move(parentPos - offset_);
     }
 }
 
-void Piece::mouseReleaseEvent(QMouseEvent* event)
-{
+void Piece::mouseReleaseEvent(QMouseEvent* event) {
     if (event->button() == Qt::LeftButton) {
         isDragging_ = false;
         setCursor(Qt::ArrowCursor);
 
         releaseMouse();
+
+        emit pieceSet(this, std::make_pair(4, 6));
     }
 }
 
-Pawn::Pawn(std::pair<int, int> position, bool isWhite, QWidget* parent) : Piece(position, isWhite, parent) {}
+Pawn::Pawn(std::pair<int, int> position, bool isWhite, QWidget* parent) :
+    Piece(position, isWhite, parent) {}
 
 std::vector<std::pair<int, int>> Pawn::calculateMoves() {
 	std::vector<std::pair<int, int>> moves;
