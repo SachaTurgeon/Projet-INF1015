@@ -5,6 +5,7 @@
 #include <vector>
 #include <QPalette>
 #include <QMouseEvent>
+#include <QTimer>
 
 Piece::Piece(std::pair<int, int> position, bool isWhite, QWidget* parent) : QWidget(parent), position_(position), isWhite_(isWhite) {
 	this->setFixedSize(50, 50);
@@ -22,10 +23,12 @@ void Piece::mousePressEvent(QMouseEvent* event)
         setCursor(Qt::ClosedHandCursor);
 
         QPoint globalPos = mapToGlobal(pos());
-        setParent(parentWidget()->parentWidget());
-        QPoint relativePos = mapFromGlobal(globalPos);
-        move(relativePos);
+        QWidget* newParent = parentWidget()->parentWidget();
+        setParent(newParent);
+        move(mapFromGlobal(globalPos));
         show();
+
+        grabMouse();
     }
 }
 
@@ -42,6 +45,8 @@ void Piece::mouseReleaseEvent(QMouseEvent* event)
     if (event->button() == Qt::LeftButton) {
         isDragging_ = false;
         setCursor(Qt::ArrowCursor);
+
+        releaseMouse();
     }
 }
 
