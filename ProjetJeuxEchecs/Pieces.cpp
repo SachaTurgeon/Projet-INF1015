@@ -5,6 +5,7 @@
 #include <QPalette>
 #include <QMouseEvent>
 #include <QTimer>
+#include <algorithm>
 
 Piece::Piece(std::pair<int, int> position, bool isWhite, QWidget* parent) :
     QWidget(parent), position_(position), isWhite_(isWhite) {
@@ -47,13 +48,19 @@ void Piece::mouseReleaseEvent(QMouseEvent* event) {
 
         releaseMouse();
 
-
         QPoint globalPos = event->globalPosition().toPoint();
         QPoint relativePos = parentWidget()->mapFromGlobal(globalPos);
-        int row = relativePos.y() / 75;
-        int col = relativePos.x() / 75;
+        int row = std::clamp(relativePos.y() / 75, 0, 7);
+        int col = std::clamp(relativePos.x() / 75, 0, 7);
+        std::pair<int, int> squareUnderCursor = std::make_pair(row, col);
 
-        position_ = std::make_pair(row, col);
+        //moves = calculateMoves();
+        std::vector<std::pair<int, int>> moves = { {0, 0}, {1, 1}, {2, 2}, {3, 3} };
+        auto it = std::find(moves.begin(), moves.end(), squareUnderCursor);
+        if (it != moves.end()) {
+            position_ = std::make_pair(row, col);
+        }
+
         emit pieceSet(this, position_);
     }
 }
