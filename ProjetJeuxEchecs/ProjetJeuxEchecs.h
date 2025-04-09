@@ -5,6 +5,7 @@
 #include "Pieces.h"
 #include <QGridLayout>
 #include <vector>
+#include <string>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class ProjetJeuxEchecsClass; };
@@ -43,4 +44,6 @@ private:
     Ui::ProjetJeuxEchecsClass *ui;
     void setup();
     void setGrid(QGridLayout* grid);
+    template <typename T>
+    void addPieceToGrid(std::pair<int, int> position, bool isWhite, ChessSquare* square);
 };

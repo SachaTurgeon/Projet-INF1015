@@ -7,6 +7,7 @@
 #include <QColor>
 #include <utility>
 #include <iostream>
+#include <string>
 
  ChessSquare::ChessSquare(std::pair<int, int> position, QWidget* parent) : QWidget(parent), position_(position) {
     QPalette pal = this->palette();
@@ -30,7 +31,15 @@ void ChessSquare::addPiece(Piece* piece) {
     piece->show();
     piece_ = piece;
     this->update();
- }
+}
+
+template <typename T>
+void ProjetJeuxEchecs::addPieceToGrid(std::pair<int, int> position, bool isWhite, ChessSquare* square) {
+    T* piece = new T(position, true);
+    connect(piece, &Piece::pieceRemove, this, &ProjetJeuxEchecs::onPieceRemove);
+    connect(piece, &Piece::pieceSet, this, &ProjetJeuxEchecs::onPieceSet);
+    square->addPiece(piece);
+}
 
 void ProjetJeuxEchecs::onPieceRemove(Piece* piece) {
     squaresVector[piece->getPosition().first][piece->getPosition().second]->setPieceNull();
@@ -53,10 +62,7 @@ void ProjetJeuxEchecs::setGrid(QGridLayout* grid) {
             grid->addWidget(square, row, col);
             squaresVector[row][col] = square;
             if ((row == 5) && (col == 1) || (row == 2) && (col == 1)) {
-                Piece* piece = new Piece(std::make_pair(row, col), true);
-                connect(piece, &Piece::pieceRemove, this, &ProjetJeuxEchecs::onPieceRemove);
-                connect(piece, &Piece::pieceSet, this, &ProjetJeuxEchecs::onPieceSet);
-                square->addPiece(piece);
+                addPieceToGrid<Piece>(std::make_pair(row, col), true, square);
             }
         }
     } 
