@@ -47,7 +47,14 @@ void Piece::mouseReleaseEvent(QMouseEvent* event) {
 
         releaseMouse();
 
-        emit pieceSet(this, std::make_pair(4, 6));
+
+        QPoint globalPos = event->globalPosition().toPoint();
+        QPoint relativePos = parentWidget()->mapFromGlobal(globalPos);
+        int row = relativePos.y() / 75;
+        int col = relativePos.x() / 75;
+
+        position_ = std::make_pair(row, col);
+        emit pieceSet(this, position_);
     }
 }
 
