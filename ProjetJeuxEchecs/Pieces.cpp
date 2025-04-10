@@ -173,6 +173,26 @@ Bishop::Bishop(std::pair<int, int> position, bool isWhite, QWidget* parent) :
 
 std::vector<std::pair<int, int>> Bishop::calculateMoves() {
     std::vector<std::pair<int, int>> moves;
+
+    const std::vector<std::pair<int, int>> offsets = { {1, 1}, {1, -1}, {-1, 1}, {-1, -1} };
+
+    for (const std::pair<int, int>& offset : offsets) {
+        for (int i = 1; i < 8; i++) {
+            int newRow = position_.first + offset.first * i;
+            int newCol = position_.second + offset.second * i;
+
+            if ((newRow >= 0) && (newRow < 8) && (newCol >= 0) && (newCol < 8)) {
+                emit requestPieceOnSquare(newRow, newCol);
+                if (otherPiece_ == nullptr || otherPiece_->isWhite_ != isWhite_) {
+                    moves.push_back(std::make_pair(newRow, newCol));
+                }
+                if (otherPiece_ != nullptr) {
+                    break;
+                }
+            }
+            else { break; }
+        }
+    }
     return moves;
 }
 
@@ -184,6 +204,26 @@ Rook::Rook(std::pair<int, int> position, bool isWhite, QWidget* parent) :
 
 std::vector<std::pair<int, int>> Rook::calculateMoves() {
     std::vector<std::pair<int, int>> moves;
+
+    const std::vector<std::pair<int, int>> offsets = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+
+    for (const std::pair<int, int>& offset : offsets) {
+        for (int i = 1; i < 8; i++) {
+            int newRow = position_.first + offset.first * i;
+            int newCol = position_.second + offset.second * i;
+
+            if ((newRow >= 0) && (newRow < 8) && (newCol >= 0) && (newCol < 8)) {
+                emit requestPieceOnSquare(newRow, newCol);
+                if (otherPiece_ == nullptr || otherPiece_->isWhite_ != isWhite_) {
+                    moves.push_back(std::make_pair(newRow, newCol));
+                }
+                if (otherPiece_ != nullptr) {
+                    break;
+                }
+            }
+            else { break; }
+        }
+    }
     return moves;
 }
 
@@ -195,6 +235,26 @@ Queen::Queen(std::pair<int, int> position, bool isWhite, QWidget* parent) :
 
 std::vector<std::pair<int, int>> Queen::calculateMoves() {
     std::vector<std::pair<int, int>> moves;
+
+    const std::vector<std::pair<int, int>> offsets = { {1, 0}, {-1, 0}, {0, 1}, {0, -1}, {1, 1}, {1, -1}, {-1, 1}, {-1, -1} };
+
+    for (const std::pair<int, int>& offset : offsets) {
+        for (int i = 1; i < 8; i++) {
+            int newRow = position_.first + offset.first * i;
+            int newCol = position_.second + offset.second * i;
+
+            if ((newRow >= 0) && (newRow < 8) && (newCol >= 0) && (newCol < 8)) {
+                emit requestPieceOnSquare(newRow, newCol);
+                if (otherPiece_ == nullptr || otherPiece_->isWhite_ != isWhite_) {
+                    moves.push_back(std::make_pair(newRow, newCol));
+                }
+                if (otherPiece_ != nullptr) {
+                    break;
+                }
+            }
+            else { break; }
+        }
+    }
     return moves;
 }
 
@@ -207,7 +267,7 @@ King::King(std::pair<int, int> position, bool isWhite, QWidget* parent) :
 std::vector<std::pair<int, int>> King::calculateMoves() {
     std::vector<std::pair<int, int>> moves;
 
-    const std::vector<std::pair<int, int>> offsets = { {0, 1}, {0, -1}, {1, 0}, {-1, 0}, {1, 1}, {1, -1}, {-1, 1}, {-1, -1} };
+    const std::vector<std::pair<int, int>> offsets = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}, {1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
 
     for (const std::pair<int, int>& offset : offsets) {
         int newRow = position_.first + offset.first;
