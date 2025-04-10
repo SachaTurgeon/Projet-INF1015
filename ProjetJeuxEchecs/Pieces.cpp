@@ -148,6 +148,23 @@ Knight::Knight(std::pair<int, int> position, bool isWhite, QWidget* parent) :
 
 std::vector<std::pair<int, int>> Knight::calculateMoves() {
     std::vector<std::pair<int, int>> moves;
+
+    const std::vector<std::pair<int, int>> offsets = {{2, 1}, {2, -1}, {-2, 1}, {-2, -1}, {1, 2}, {1, -2}, {-1, 2}, {-1, -2}};
+
+    for (const std::pair<int, int>& offset : offsets) {
+        int newRow = position_.first + offset.first;
+        int newCol = position_.second + offset.second;
+
+        if ((newRow >= 0) && (newRow < 8) && (newCol >= 0) && (newCol < 8)) {
+            emit requestPieceOnSquare(newRow, newCol);
+            if (otherPiece_ == nullptr) {
+                moves.push_back(std::make_pair(newRow, newCol));
+            }
+            else if (otherPiece_->isWhite_ != isWhite_) {
+                moves.push_back(std::make_pair(newRow, newCol));
+            }
+        }
+    }
     return moves;
 }
 
@@ -192,5 +209,22 @@ King::King(std::pair<int, int> position, bool isWhite, QWidget* parent) :
 
 std::vector<std::pair<int, int>> King::calculateMoves() {
     std::vector<std::pair<int, int>> moves;
+
+    const std::vector<std::pair<int, int>> offsets = { {0, 1}, {0, -1}, {1, 0}, {-1, 0}, {1, 1}, {1, -1}, {-1, 1}, {-1, -1} };
+
+    for (const std::pair<int, int>& offset : offsets) {
+        int newRow = position_.first + offset.first;
+        int newCol = position_.second + offset.second;
+
+        if ((newRow >= 0) && (newRow < 8) && (newCol >= 0) && (newCol < 8)) {
+            emit requestPieceOnSquare(newRow, newCol);
+            if (otherPiece_ == nullptr) {
+                moves.push_back(std::make_pair(newRow, newCol));
+            }
+            else if (otherPiece_->isWhite_ != isWhite_) {
+                moves.push_back(std::make_pair(newRow, newCol));
+            }
+        }
+    }
     return moves;
 }
