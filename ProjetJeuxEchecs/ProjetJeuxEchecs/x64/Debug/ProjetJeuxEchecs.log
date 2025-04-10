@@ -1,8 +1,5 @@
 ﻿   Qt/MSBuild: 3.3.1.1
    Qt: 6.8.3
-  Pieces.cpp
-  ProjetJeuxEchecs.cpp
-C:\Users\sacha\Downloads\école\INF1015\Projet\Projet-INF1015\ProjetJeuxEchecs\Pieces.cpp(84,9): warning C4189: 'direction': local variable is initialized but not referenced
-  moc_Pieces.cpp
-  moc_ProjetJeuxEchecs.cpp
-  ProjetJeuxEchecs.vcxproj -> C:\Users\sacha\Downloads\école\INF1015\Projet\Projet-INF1015\ProjetJeuxEchecs\x64\Debug\ProjetJeuxEchecs.exe
+  moc Pieces.h
+   C:\Users\sacha\Downloads\├⌐cole\INF1015\Projet\Projet-INF1015\ProjetJeuxEchecs\Pieces.h(30:1): error: Not a signal or slot declaration
+C:\Users\sacha\AppData\Local\QtMsBuild\qt_work.targets(138,5): error MSB4181: The "QtRunWork" task returned false but did not log an error.

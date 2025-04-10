@@ -27,15 +27,16 @@ signals:
 public slots:
 	void getPieceOnSquare(Piece* piece);
 
+	bool isWhite_;
+
 protected:
 	QLabel* imageLabel_;
-	bool isWhite_;
 	Piece* otherPiece_ = nullptr;
+	std::pair<int, int> position_;
 
 private:
 	bool isDragging_ = false;
 	QPoint offset_;
-	std::pair<int, int> position_;
 };
 
 class Pawn : public Piece

@@ -80,11 +80,31 @@ Pawn::Pawn(std::pair<int, int> position, bool isWhite, QWidget* parent) :
 }
 
 std::vector<std::pair<int, int>> Pawn::calculateMoves() {
-	std::vector<std::pair<int, int>> moves;
-    int direction = isWhite_ ? 1 : -1;
-    emit requestPieceOnSquare(4, 4);
-    if (otherPiece_ == nullptr){ 
-        moves.push_back(std::make_pair(4, 4));
+    std::vector<std::pair<int, int>> moves;
+    int row = position_.first;
+    int col = position_.second;
+
+    if (isWhite_) {
+        if (row > 0) {
+            emit requestPieceOnSquare(row - 1, col);
+            if (otherPiece_ == nullptr) {
+                moves.push_back(std::make_pair(row - 1, col));
+            }
+            /*if (col > 0) {
+                emit requestPieceOnSquare(row - 1, col - 1);
+                if (otherPiece_ != nullptr && !otherPiece_->isWhite_) {
+                    moves.push_back(std::make_pair(row - 1, col - 1));
+                }
+            }*/
+        }
+    }
+    else {
+        if (row < 7) {
+            emit requestPieceOnSquare(row + 1, col);
+            if (otherPiece_ == nullptr) {
+                moves.push_back(std::make_pair(row + 1, col));
+            }
+        }
     }
 	return moves;
 }
