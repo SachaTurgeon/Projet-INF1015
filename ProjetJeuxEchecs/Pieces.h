@@ -22,10 +22,15 @@ public:
 signals:
 	void pieceRemove(Piece* piece);
 	void pieceSet(Piece* piece, std::pair<int, int> newPosition);
+	void requestPieceOnSquare(int row, int col);
+
+public slots:
+	void getPieceOnSquare(Piece* piece);
 
 protected:
 	QLabel* imageLabel_;
 	bool isWhite_;
+	Piece* otherPiece_ = nullptr;
 
 private:
 	bool isDragging_ = false;

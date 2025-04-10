@@ -20,6 +20,7 @@ public:
     void setPieceNull() { piece_ = nullptr; }
     void addPiece(Piece* piece);
     std::pair<int, int> getPosition() { return position_; }
+    Piece* getPiece() { return piece_; }
 
 private:
     Piece* piece_ = nullptr;
@@ -36,9 +37,13 @@ public:
 
     std::vector<std::vector<ChessSquare*>> squaresVector;
 
+signals:
+    void sendPieceOnSquare(Piece* piece);
+
 private slots:
     void onPieceRemove(Piece* piece);
     void onPieceSet(Piece* piece, std::pair<int, int> newPosition);
+    void onPieceOnSquareRequest(int row, int col);
 
 private:
     Ui::ProjetJeuxEchecsClass *ui;

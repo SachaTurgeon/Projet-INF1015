@@ -4,7 +4,6 @@
 #include <vector>
 #include <QPalette>
 #include <QMouseEvent>
-#include <QTimer>
 #include <algorithm>
 #include <QLabel>
 #include <QPixmap>
@@ -37,6 +36,10 @@ void Piece::mousePressEvent(QMouseEvent* event) {
 
         emit pieceRemove(this);
     }
+}
+
+void Piece::getPieceOnSquare(Piece* piece) {
+    otherPiece_ = piece;
 }
 
 void Piece::mouseMoveEvent(QMouseEvent* event) {
@@ -79,7 +82,10 @@ Pawn::Pawn(std::pair<int, int> position, bool isWhite, QWidget* parent) :
 std::vector<std::pair<int, int>> Pawn::calculateMoves() {
 	std::vector<std::pair<int, int>> moves;
     int direction = isWhite_ ? 1 : -1;
-    moves.push_back(std::make_pair(4, 4));
+    emit requestPieceOnSquare(4, 4);
+    if (otherPiece_ == nullptr){ 
+        moves.push_back(std::make_pair(4, 4));
+    }
 	return moves;
 }
 

@@ -40,6 +40,8 @@ void ProjetJeuxEchecs::addPieceToGrid(std::pair<int, int> position, bool isWhite
     T* piece = new T(position, isWhite);
     connect(piece, &Piece::pieceRemove, this, &ProjetJeuxEchecs::onPieceRemove);
     connect(piece, &Piece::pieceSet, this, &ProjetJeuxEchecs::onPieceSet);
+    connect(piece, &Piece::requestPieceOnSquare, this, &ProjetJeuxEchecs::onPieceOnSquareRequest);
+    connect(this, &ProjetJeuxEchecs::sendPieceOnSquare, piece, &Piece::getPieceOnSquare);
     square->addPiece(piece);
 }
 
@@ -49,6 +51,10 @@ void ProjetJeuxEchecs::onPieceRemove(Piece* piece) {
 
 void ProjetJeuxEchecs::onPieceSet(Piece* piece, std::pair<int, int> newPosition) {
     squaresVector[newPosition.first][newPosition.second]->addPiece(piece);
+}
+
+void ProjetJeuxEchecs::onPieceOnSquareRequest(int row, int col) {
+    emit sendPieceOnSquare(squaresVector[row][col]->getPiece());
 }
 
 void ProjetJeuxEchecs::setGrid(QGridLayout* grid) {
