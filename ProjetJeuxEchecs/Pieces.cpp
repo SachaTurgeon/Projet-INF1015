@@ -64,10 +64,10 @@ void Piece::mouseReleaseEvent(QMouseEvent* event) {
         std::pair<int, int> squareUnderCursor = std::make_pair(row, col);
 
         std::vector<std::pair<int, int>> moves = calculateMoves();
-        //std::vector<std::pair<int, int>> moves = { {0, 0}, {1, 1}, {2, 2}, {3, 3} };
         auto it = std::find(moves.begin(), moves.end(), squareUnderCursor);
         if (it != moves.end()) {
             position_ = std::make_pair(row, col);
+            hasMoved_ = true;
         }
 
         emit pieceSet(this, position_);
@@ -91,12 +91,24 @@ std::vector<std::pair<int, int>> Pawn::calculateMoves() {
             if (otherPiece_ == nullptr) {
                 moves.push_back(std::make_pair(row - 1, col));
             }
-            /*if (col > 0) {
+            if (col > 0) {
                 emit requestPieceOnSquare(row - 1, col - 1);
                 if (otherPiece_ != nullptr && !otherPiece_->isWhite_) {
                     moves.push_back(std::make_pair(row - 1, col - 1));
                 }
-            }*/
+            }
+            if (col < 7) {
+                emit requestPieceOnSquare(row - 1, col + 1);
+                if (otherPiece_ != nullptr && !otherPiece_->isWhite_) {
+                    moves.push_back(std::make_pair(row - 1, col + 1));
+                }
+            }
+        }
+        if (!hasMoved_) {
+            emit requestPieceOnSquare(row - 2, col);
+            if (otherPiece_ == nullptr) {
+                moves.push_back(std::make_pair(row - 2, col));
+            }
         }
     }
     else {
@@ -104,6 +116,24 @@ std::vector<std::pair<int, int>> Pawn::calculateMoves() {
             emit requestPieceOnSquare(row + 1, col);
             if (otherPiece_ == nullptr) {
                 moves.push_back(std::make_pair(row + 1, col));
+            }
+        }
+        if (col > 0) {
+            emit requestPieceOnSquare(row + 1, col - 1);
+            if (otherPiece_ != nullptr && otherPiece_->isWhite_) {
+                moves.push_back(std::make_pair(row + 1, col - 1));
+            }
+        }
+        if (col < 7) {
+            emit requestPieceOnSquare(row + 1, col + 1);
+            if (otherPiece_ != nullptr && otherPiece_->isWhite_) {
+                moves.push_back(std::make_pair(row + 1, col + 1));
+            }
+        }
+        if (!hasMoved_) {
+            emit requestPieceOnSquare(row + 2, col);
+            if (otherPiece_ == nullptr) {
+                moves.push_back(std::make_pair(row + 2, col));
             }
         }
     }

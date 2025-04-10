@@ -19,6 +19,8 @@ public:
 	void mouseReleaseEvent(QMouseEvent* event) override;
 	void showPieceImage(const QString& imageFile);
 
+	bool isWhite_;
+
 signals:
 	void pieceRemove(Piece* piece);
 	void pieceSet(Piece* piece, std::pair<int, int> newPosition);
@@ -27,12 +29,11 @@ signals:
 public slots:
 	void getPieceOnSquare(Piece* piece);
 
-	bool isWhite_;
-
 protected:
 	QLabel* imageLabel_;
 	Piece* otherPiece_ = nullptr;
 	std::pair<int, int> position_;
+	bool hasMoved_ = false;
 
 private:
 	bool isDragging_ = false;
@@ -45,7 +46,7 @@ public:
 	Pawn(std::pair<int, int> position, bool isWhite, QWidget* parent = nullptr);
 	std::vector<std::pair<int, int>> calculateMoves() override;
 private:
-	bool hasMoved_ = false;
+
 };
 
 class Knight : public Piece

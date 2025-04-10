@@ -1,18 +1,9 @@
 ﻿   Qt/MSBuild: 3.3.1.1
    Qt: 6.8.3
+  moc Pieces.h
   Pieces.cpp
-  TestJeuxEchecs.cpp
-  bibliotheque_cours.cpp
-  verification_allocation.cpp
-  gtest-all.cc
   ProjetJeuxEchecs.cpp
   main.cpp
-C:\Users\sacha\Downloads\école\INF1015\Projet\ProjetJeuxEchecs\TestJeuxEchecs.cpp(1,1): warning C4828: The file contains a character starting at offset 0x29 that is illegal in the current source character set (codepage 65001).
-C:\Users\sacha\Downloads\école\INF1015\Projet\ProjetJeuxEchecs\TestJeuxEchecs.cpp(1,1): warning C4828: The file contains a character starting at offset 0x72 that is illegal in the current source character set (codepage 65001).
-C:\Users\sacha\Downloads\école\INF1015\Projet\ProjetJeuxEchecs\TestJeuxEchecs.cpp(1,1): warning C4828: The file contains a character starting at offset 0xe3 that is illegal in the current source character set (codepage 65001).
-C:\Users\sacha\Downloads\école\INF1015\Projet\ProjetJeuxEchecs\TestJeuxEchecs.cpp(1,1): warning C4828: The file contains a character starting at offset 0x152 that is illegal in the current source character set (codepage 65001).
-  qrc_ProjetJeuxEchecs.cpp
-  moc_ProjetJeuxEchecs.cpp
   moc_Pieces.cpp
-     Creating library C:\Users\sacha\Downloads\école\INF1015\Projet\ProjetJeuxEchecs\x64\Debug\ProjetJeuxEchecs.lib and object C:\Users\sacha\Downloads\école\INF1015\Projet\ProjetJeuxEchecs\x64\Debug\ProjetJeuxEchecs.exp
+  moc_ProjetJeuxEchecs.cpp
   ProjetJeuxEchecs.vcxproj -> C:\Users\sacha\Downloads\école\INF1015\Projet\ProjetJeuxEchecs\x64\Debug\ProjetJeuxEchecs.exe
