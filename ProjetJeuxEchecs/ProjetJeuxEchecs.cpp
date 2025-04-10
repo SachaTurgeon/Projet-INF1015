@@ -28,6 +28,9 @@ void ChessSquare::addPiece(Piece* piece) {
     piece->setParent(this);
     piece->setPosition(getPosition());
     piece->show();
+    if (piece_) {
+        delete piece_;
+    }
     piece_ = piece;
     this->update();
 }
