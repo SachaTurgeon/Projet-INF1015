@@ -137,10 +137,13 @@ void ProjetJeuxEchecs::setup() {
 
     QPushButton* resetButton = new QPushButton("Reset Board", this);
     connect(resetButton, &QPushButton::clicked, this, &ProjetJeuxEchecs::onReset);
+    
 
     QVBoxLayout* mainLayout = new QVBoxLayout();
     mainLayout->addWidget(resetButton);
     mainLayout->addWidget(chessBoard);
+    mainLayout->setAlignment(resetButton, Qt::AlignHCenter);
+    mainLayout->setAlignment(chessBoard, Qt::AlignHCenter);
 
     QWidget* centralWidget = new QWidget(this);
     centralWidget->setLayout(mainLayout);
@@ -150,6 +153,7 @@ void ProjetJeuxEchecs::setup() {
 ProjetJeuxEchecs::ProjetJeuxEchecs(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::ProjetJeuxEchecsClass()) {
     ui->setupUi(this);
+    setWindowTitle("Projet jeu d'echec INF1015");
     setup();
 }
 
