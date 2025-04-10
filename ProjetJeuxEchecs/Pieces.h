@@ -25,12 +25,12 @@ signals:
 
 protected:
 	QLabel* imageLabel_;
+	bool isWhite_;
 
 private:
 	bool isDragging_ = false;
 	QPoint offset_;
 	std::pair<int, int> position_;
-	bool isWhite_;
 };
 
 class Pawn : public Piece

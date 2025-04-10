@@ -59,8 +59,8 @@ void Piece::mouseReleaseEvent(QMouseEvent* event) {
         int col = std::clamp(relativePos.x() / 75, 0, 7);
         std::pair<int, int> squareUnderCursor = std::make_pair(row, col);
 
-        //moves = calculateMoves();
-        std::vector<std::pair<int, int>> moves = { {0, 0}, {1, 1}, {2, 2}, {3, 3} };
+        std::vector<std::pair<int, int>> moves = calculateMoves();
+        //std::vector<std::pair<int, int>> moves = { {0, 0}, {1, 1}, {2, 2}, {3, 3} };
         auto it = std::find(moves.begin(), moves.end(), squareUnderCursor);
         if (it != moves.end()) {
             position_ = std::make_pair(row, col);
@@ -78,6 +78,8 @@ Pawn::Pawn(std::pair<int, int> position, bool isWhite, QWidget* parent) :
 
 std::vector<std::pair<int, int>> Pawn::calculateMoves() {
 	std::vector<std::pair<int, int>> moves;
+    int direction = isWhite_ ? 1 : -1;
+    moves.push_back(std::make_pair(4, 4));
 	return moves;
 }
 
