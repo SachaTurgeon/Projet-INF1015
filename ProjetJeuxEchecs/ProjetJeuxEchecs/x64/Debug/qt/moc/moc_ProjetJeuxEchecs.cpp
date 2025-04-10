@@ -117,7 +117,8 @@ static constexpr auto qt_meta_stringdata_ZN16ProjetJeuxEchecsE = QtMocHelpers::s
     "newPosition",
     "onPieceOnSquareRequest",
     "row",
-    "col"
+    "col",
+    "onReset"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -129,7 +130,7 @@ Q_CONSTINIT static const uint qt_meta_data_ZN16ProjetJeuxEchecsE[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-       4,   14, // methods
+       5,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -137,12 +138,13 @@ Q_CONSTINIT static const uint qt_meta_data_ZN16ProjetJeuxEchecsE[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    1,   38,    2, 0x06,    1 /* Public */,
+       1,    1,   44,    2, 0x06,    1 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       5,    1,   41,    2, 0x08,    3 /* Private */,
-       6,    2,   44,    2, 0x08,    5 /* Private */,
-       9,    2,   49,    2, 0x08,    8 /* Private */,
+       5,    1,   47,    2, 0x08,    3 /* Private */,
+       6,    2,   50,    2, 0x08,    5 /* Private */,
+       9,    2,   55,    2, 0x08,    8 /* Private */,
+      12,    0,   60,    2, 0x08,   11 /* Private */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
@@ -151,6 +153,7 @@ Q_CONSTINIT static const uint qt_meta_data_ZN16ProjetJeuxEchecsE[] = {
     QMetaType::Void, 0x80000000 | 3,    4,
     QMetaType::Void, 0x80000000 | 3, 0x80000000 | 7,    4,    8,
     QMetaType::Void, QMetaType::Int, QMetaType::Int,   10,   11,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -177,7 +180,9 @@ Q_CONSTINIT const QMetaObject ProjetJeuxEchecs::staticMetaObject = { {
         // method 'onPieceOnSquareRequest'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<int, std::false_type>,
-        QtPrivate::TypeAndForceComplete<int, std::false_type>
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        // method 'onReset'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
 } };
@@ -191,6 +196,7 @@ void ProjetJeuxEchecs::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int
         case 1: _t->onPieceRemove((*reinterpret_cast< std::add_pointer_t<Piece*>>(_a[1]))); break;
         case 2: _t->onPieceSet((*reinterpret_cast< std::add_pointer_t<Piece*>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<std::pair<int,int>>>(_a[2]))); break;
         case 3: _t->onPieceOnSquareRequest((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2]))); break;
+        case 4: _t->onReset(); break;
         default: ;
         }
     }
@@ -251,14 +257,14 @@ int ProjetJeuxEchecs::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 4)
+        if (_id < 5)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 4;
+        _id -= 5;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 4)
+        if (_id < 5)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 4;
+        _id -= 5;
     }
     return _id;
 }

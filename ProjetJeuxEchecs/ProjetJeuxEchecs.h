@@ -21,6 +21,7 @@ public:
     void addPiece(Piece* piece);
     std::pair<int, int> getPosition() { return position_; }
     Piece* getPiece() { return piece_; }
+    void removePiece();
 
 private:
     Piece* piece_ = nullptr;
@@ -44,6 +45,7 @@ private slots:
     void onPieceRemove(Piece* piece);
     void onPieceSet(Piece* piece, std::pair<int, int> newPosition);
     void onPieceOnSquareRequest(int row, int col);
+    void onReset();
 
 private:
     Ui::ProjetJeuxEchecsClass *ui;
@@ -51,4 +53,5 @@ private:
     void setGrid(QGridLayout* grid);
     template <typename T>
     void addPieceToGrid(std::pair<int, int> position, bool isWhite, ChessSquare* square);
+    void setNormalGame(int row, int col, ChessSquare* square);
 };

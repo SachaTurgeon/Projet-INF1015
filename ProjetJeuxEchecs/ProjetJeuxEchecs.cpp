@@ -7,6 +7,7 @@
 #include <QColor>
 #include <utility>
 #include <string>
+#include <QPushButton>
 
  ChessSquare::ChessSquare(std::pair<int, int> position, QWidget* parent) : QWidget(parent), position_(position) {
     QPalette pal = this->palette();
@@ -35,6 +36,11 @@ void ChessSquare::addPiece(Piece* piece) {
     this->update();
 }
 
+void ChessSquare::removePiece() {
+    delete piece_;
+    setPieceNull();
+}
+
 template <typename T>
 void ProjetJeuxEchecs::addPieceToGrid(std::pair<int, int> position, bool isWhite, ChessSquare* square) {
     T* piece = new T(position, isWhite);
@@ -43,6 +49,42 @@ void ProjetJeuxEchecs::addPieceToGrid(std::pair<int, int> position, bool isWhite
     connect(piece, &Piece::requestPieceOnSquare, this, &ProjetJeuxEchecs::onPieceOnSquareRequest);
     connect(this, &ProjetJeuxEchecs::sendPieceOnSquare, piece, &Piece::getPieceOnSquare);
     square->addPiece(piece);
+}
+
+void ProjetJeuxEchecs::setNormalGame(int row, int col, ChessSquare* square) {
+    std::pair<int, int> pos = { row, col };
+
+    if (row == 6) {
+        addPieceToGrid<Pawn>(pos, true, square);
+        return;
+    }
+    if (row == 1) {
+        addPieceToGrid<Pawn>(pos, false, square);
+        return;
+    }
+
+    if (row != 0 && row != 7)
+        return;
+
+    bool isWhite = (row == 7);
+
+    switch (col) {
+        case 0: case 7:
+            addPieceToGrid<Rook>(pos, isWhite, square);
+            break;
+        case 1: case 6:
+            addPieceToGrid<Knight>(pos, isWhite, square);
+            break;
+        case 2: case 5:
+            addPieceToGrid<Bishop>(pos, isWhite, square);
+            break;
+        case 3:
+            addPieceToGrid<Queen>(pos, isWhite, square);
+            break;
+        case 4:
+            addPieceToGrid<King>(pos, isWhite, square);
+            break;
+    }
 }
 
 void ProjetJeuxEchecs::onPieceRemove(Piece* piece) {
@@ -57,6 +99,18 @@ void ProjetJeuxEchecs::onPieceOnSquareRequest(int row, int col) {
     emit sendPieceOnSquare(squaresVector[row][col]->getPiece());
 }
 
+void ProjetJeuxEchecs::onReset() {
+    for (int row = 0; row < 8; ++row) {
+        for (int col = 0; col < 8; ++col) {
+            ChessSquare* square = squaresVector[row][col];
+            if (square->getPiece()) {
+                square->removePiece();
+            }
+            setNormalGame(row, col, squaresVector[row][col]);
+        }
+    }
+}
+
 void ProjetJeuxEchecs::setGrid(QGridLayout* grid) {
     grid->setSpacing(0);
     grid->setContentsMargins(0, 0, 0, 0);
@@ -69,42 +123,7 @@ void ProjetJeuxEchecs::setGrid(QGridLayout* grid) {
             ChessSquare* square = new ChessSquare(std::make_pair(row, col), grid->parentWidget());
             grid->addWidget(square, row, col);
             squaresVector[row][col] = square;
-            if (row == 6) {
-                addPieceToGrid<Pawn>(std::make_pair(row, col), true, square);
-            }
-            else if (row == 1){
-                addPieceToGrid<Pawn>(std::make_pair(row, col), false, square);
-            }
-            else if ((row == 7) && (col == 0 || col == 7)) {
-                addPieceToGrid<Rook>(std::make_pair(row, col), true, square);
-            }
-            else if ((row == 0) && (col == 0 || col == 7)) {
-                addPieceToGrid<Rook>(std::make_pair(row, col), false, square);
-            }
-            else if ((row == 7) && (col == 1 || col == 6)) {
-                addPieceToGrid<Knight>(std::make_pair(row, col), true, square);
-            }
-            else if ((row == 0) && (col == 1 || col == 6)) {
-                addPieceToGrid<Knight>(std::make_pair(row, col), false, square);
-            }
-            else if ((row == 7) && (col == 2 || col == 5)) {
-                addPieceToGrid<Bishop>(std::make_pair(row, col), true, square);
-            }
-            else if ((row == 0) && (col == 2 || col == 5)) {
-                addPieceToGrid<Bishop>(std::make_pair(row, col), false, square);
-            }
-            else if ((row == 7) && (col == 3)) {
-                addPieceToGrid<Queen>(std::make_pair(row, col), true, square);
-            }
-            else if ((row == 0) && (col == 3)) {
-                addPieceToGrid<Queen>(std::make_pair(row, col), false, square);
-            }
-            else if ((row == 7) && (col == 4)) {
-                addPieceToGrid<King>(std::make_pair(row, col), true, square);
-            }
-            else if ((row == 0) && (col == 4)) {
-                addPieceToGrid<King>(std::make_pair(row, col), false, square);
-            }
+            setNormalGame(row, col, square);
         }
     } 
 }
@@ -116,7 +135,11 @@ void ProjetJeuxEchecs::setup() {
     setGrid(grid);
     chessBoard->setLayout(grid);
 
+    QPushButton* resetButton = new QPushButton("Reset Board", this);
+    connect(resetButton, &QPushButton::clicked, this, &ProjetJeuxEchecs::onReset);
+
     QVBoxLayout* mainLayout = new QVBoxLayout();
+    mainLayout->addWidget(resetButton);
     mainLayout->addWidget(chessBoard);
 
     QWidget* centralWidget = new QWidget(this);

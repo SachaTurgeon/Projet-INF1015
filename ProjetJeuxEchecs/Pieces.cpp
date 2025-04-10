@@ -14,7 +14,7 @@ Piece::Piece(std::pair<int, int> position, bool isWhite, QWidget* parent) :
     imageLabel_ = new QLabel(this);
 };
 
-//Image from : 
+//Images from : https://greenchess.net/info.php?item=downloads
 void Piece::showPieceImage(const QString& imageFile) {
     QPixmap pixmap(imageFile);
     imageLabel_->setPixmap(pixmap.scaled(70, 70, Qt::KeepAspectRatio, Qt::SmoothTransformation));
@@ -82,8 +82,8 @@ Pawn::Pawn(std::pair<int, int> position, bool isWhite, QWidget* parent) :
 
 std::vector<std::pair<int, int>> Pawn::calculateMoves() {
     std::vector<std::pair<int, int>> moves;
-    int row = position_.first;
-    int col = position_.second;
+    const int row = position_.first;
+    const int col = position_.second;
 
     if (isWhite_) {
         if (row > 0) {
@@ -157,10 +157,7 @@ std::vector<std::pair<int, int>> Knight::calculateMoves() {
 
         if ((newRow >= 0) && (newRow < 8) && (newCol >= 0) && (newCol < 8)) {
             emit requestPieceOnSquare(newRow, newCol);
-            if (otherPiece_ == nullptr) {
-                moves.push_back(std::make_pair(newRow, newCol));
-            }
-            else if (otherPiece_->isWhite_ != isWhite_) {
+            if (otherPiece_ == nullptr || otherPiece_->isWhite_ != isWhite_) {
                 moves.push_back(std::make_pair(newRow, newCol));
             }
         }
@@ -218,10 +215,7 @@ std::vector<std::pair<int, int>> King::calculateMoves() {
 
         if ((newRow >= 0) && (newRow < 8) && (newCol >= 0) && (newCol < 8)) {
             emit requestPieceOnSquare(newRow, newCol);
-            if (otherPiece_ == nullptr) {
-                moves.push_back(std::make_pair(newRow, newCol));
-            }
-            else if (otherPiece_->isWhite_ != isWhite_) {
+            if (otherPiece_ == nullptr || otherPiece_->isWhite_ != isWhite_) {
                 moves.push_back(std::make_pair(newRow, newCol));
             }
         }
