@@ -105,6 +105,7 @@ void ProjetJeuxEchecs::setGrid(QGridLayout* grid) {
 
 void ProjetJeuxEchecs::setup() {
     QWidget* chessBoard = new QWidget(this);
+    chessBoard->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     QGridLayout* grid = new QGridLayout(chessBoard);
     setGrid(grid);
     chessBoard->setLayout(grid);

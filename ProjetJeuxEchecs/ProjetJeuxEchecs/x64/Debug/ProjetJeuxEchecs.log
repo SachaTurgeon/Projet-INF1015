@@ -1,4 +1,5 @@
 ﻿   Qt/MSBuild: 3.3.1.1
    Qt: 6.8.3
   Pieces.cpp
+C:\Users\sacha\Downloads\école\INF1015\Projet\Projet-INF1015\ProjetJeuxEchecs\Pieces.cpp(81,9): warning C4189: 'direction': local variable is initialized but not referenced
   ProjetJeuxEchecs.vcxproj -> C:\Users\sacha\Downloads\école\INF1015\Projet\Projet-INF1015\ProjetJeuxEchecs\x64\Debug\ProjetJeuxEchecs.exe

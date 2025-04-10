@@ -17,7 +17,7 @@ Piece::Piece(std::pair<int, int> position, bool isWhite, QWidget* parent) :
 
 void Piece::showPieceImage(const QString& imageFile) {
     QPixmap pixmap(imageFile);
-    imageLabel_->setPixmap(pixmap.scaled(70, 70, Qt::KeepAspectRatio));
+    imageLabel_->setPixmap(pixmap.scaled(70, 70, Qt::KeepAspectRatio, Qt::SmoothTransformation));
     imageLabel_->setAlignment(Qt::AlignCenter);
 }
 
