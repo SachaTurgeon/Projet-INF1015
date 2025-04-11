@@ -93,13 +93,13 @@ std::vector<std::pair<int, int>> Pawn::calculateMoves() {
             }
             if (col > 0) {
                 emit requestPieceOnSquare(row - 1, col - 1);
-                if (otherPiece_ != nullptr && !otherPiece_->isWhite_) {
+                if (otherPiece_ != nullptr && !otherPiece_->getIsWhite()) {
                     moves.push_back(std::make_pair(row - 1, col - 1));
                 }
             }
             if (col < 7) {
                 emit requestPieceOnSquare(row - 1, col + 1);
-                if (otherPiece_ != nullptr && !otherPiece_->isWhite_) {
+                if (otherPiece_ != nullptr && !otherPiece_->getIsWhite()) {
                     moves.push_back(std::make_pair(row - 1, col + 1));
                 }
             }
@@ -120,13 +120,13 @@ std::vector<std::pair<int, int>> Pawn::calculateMoves() {
         }
         if (col > 0) {
             emit requestPieceOnSquare(row + 1, col - 1);
-            if (otherPiece_ != nullptr && otherPiece_->isWhite_) {
+            if (otherPiece_ != nullptr && otherPiece_->getIsWhite()) {
                 moves.push_back(std::make_pair(row + 1, col - 1));
             }
         }
         if (col < 7) {
             emit requestPieceOnSquare(row + 1, col + 1);
-            if (otherPiece_ != nullptr && otherPiece_->isWhite_) {
+            if (otherPiece_ != nullptr && otherPiece_->getIsWhite()) {
                 moves.push_back(std::make_pair(row + 1, col + 1));
             }
         }
@@ -157,7 +157,7 @@ std::vector<std::pair<int, int>> Knight::calculateMoves() {
 
         if ((newRow >= 0) && (newRow < 8) && (newCol >= 0) && (newCol < 8)) {
             emit requestPieceOnSquare(newRow, newCol);
-            if (otherPiece_ == nullptr || otherPiece_->isWhite_ != isWhite_) {
+            if (otherPiece_ == nullptr || otherPiece_->getIsWhite() != isWhite_) {
                 moves.push_back(std::make_pair(newRow, newCol));
             }
         }
@@ -183,7 +183,7 @@ std::vector<std::pair<int, int>> Bishop::calculateMoves() {
 
             if ((newRow >= 0) && (newRow < 8) && (newCol >= 0) && (newCol < 8)) {
                 emit requestPieceOnSquare(newRow, newCol);
-                if (otherPiece_ == nullptr || otherPiece_->isWhite_ != isWhite_) {
+                if (otherPiece_ == nullptr || otherPiece_->getIsWhite() != isWhite_) {
                     moves.push_back(std::make_pair(newRow, newCol));
                 }
                 if (otherPiece_ != nullptr) {
@@ -214,7 +214,7 @@ std::vector<std::pair<int, int>> Rook::calculateMoves() {
 
             if ((newRow >= 0) && (newRow < 8) && (newCol >= 0) && (newCol < 8)) {
                 emit requestPieceOnSquare(newRow, newCol);
-                if (otherPiece_ == nullptr || otherPiece_->isWhite_ != isWhite_) {
+                if (otherPiece_ == nullptr || otherPiece_->getIsWhite() != isWhite_) {
                     moves.push_back(std::make_pair(newRow, newCol));
                 }
                 if (otherPiece_ != nullptr) {
@@ -245,7 +245,7 @@ std::vector<std::pair<int, int>> Queen::calculateMoves() {
 
             if ((newRow >= 0) && (newRow < 8) && (newCol >= 0) && (newCol < 8)) {
                 emit requestPieceOnSquare(newRow, newCol);
-                if (otherPiece_ == nullptr || otherPiece_->isWhite_ != isWhite_) {
+                if (otherPiece_ == nullptr || otherPiece_->getIsWhite() != isWhite_) {
                     moves.push_back(std::make_pair(newRow, newCol));
                 }
                 if (otherPiece_ != nullptr) {
@@ -275,7 +275,7 @@ std::vector<std::pair<int, int>> King::calculateMoves() {
 
         if ((newRow >= 0) && (newRow < 8) && (newCol >= 0) && (newCol < 8)) {
             emit requestPieceOnSquare(newRow, newCol);
-            if (otherPiece_ == nullptr || otherPiece_->isWhite_ != isWhite_) {
+            if (otherPiece_ == nullptr || otherPiece_->getIsWhite() != isWhite_) {
                 moves.push_back(std::make_pair(newRow, newCol));
             }
         }

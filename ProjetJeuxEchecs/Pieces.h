@@ -18,8 +18,7 @@ public:
 	void mouseMoveEvent(QMouseEvent* event) override;
 	void mouseReleaseEvent(QMouseEvent* event) override;
 	void showPieceImage(const QString& imageFile);
-
-	bool isWhite_;
+	bool getIsWhite() { return isWhite_; }
 
 signals:
 	void pieceRemove(Piece* piece);
@@ -34,6 +33,7 @@ protected:
 	Piece* otherPiece_ = nullptr;
 	std::pair<int, int> position_;
 	bool hasMoved_ = false;
+	bool isWhite_;
 
 private:
 	bool isDragging_ = false;
