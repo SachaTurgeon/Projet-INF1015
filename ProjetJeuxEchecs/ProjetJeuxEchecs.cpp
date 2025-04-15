@@ -6,7 +6,6 @@
 #include <QPalette>
 #include <QColor>
 #include <utility>
-#include <string>
 #include <QPushButton>
 
  ChessSquare::ChessSquare(std::pair<int, int> position, QWidget* parent) : QWidget(parent), position_(position) {
@@ -30,7 +29,7 @@ void ChessSquare::addPiece(Piece* piece) {
     piece->setPosition(getPosition());
     piece->show();
     if (piece_) {
-        delete piece_;
+        removePiece();
     }
     piece_ = piece;
     this->update();
@@ -49,6 +48,8 @@ void ProjetJeuxEchecs::addPieceToGrid(std::pair<int, int> position, bool isWhite
     connect(piece, &Piece::requestPieceOnSquare, this, &ProjetJeuxEchecs::onPieceOnSquareRequest);
     connect(this, &ProjetJeuxEchecs::sendPieceOnSquare, piece, &Piece::getPieceOnSquare);
     square->addPiece(piece);
+    if (isWhite) { whitePieces.push_back(piece); }
+    else { blackPieces.push_back(piece); }
 }
 
 void ProjetJeuxEchecs::setNormalGame(int row, int col, ChessSquare* square) {

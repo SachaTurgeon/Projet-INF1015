@@ -5,7 +5,6 @@
 #include "Pieces.h"
 #include <QGridLayout>
 #include <vector>
-#include <string>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class ProjetJeuxEchecsClass; };
@@ -37,6 +36,8 @@ public:
     ~ProjetJeuxEchecs();
 
     std::vector<std::vector<ChessSquare*>> squaresVector;
+    std::vector<Piece*> whitePieces;
+    std::vector<Piece*> blackPieces;
 
 signals:
     void sendPieceOnSquare(Piece* piece);

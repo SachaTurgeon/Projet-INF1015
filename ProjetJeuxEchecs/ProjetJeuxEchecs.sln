@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35913.81 d17.13
+VisualStudioVersion = 17.13.35913.81
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ProjetJeuxEchecs", "ProjetJeuxEchecs.vcxproj", "{222FFE53-2AC6-45A4-AE98-C8E9E259DDF7}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "qtvars", "ProjetJeuxEchecs\x64\Debug\qt\qmake\qtvars.vcxproj", "{105348BC-E7EB-3AB0-A207-34C30D61E683}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{222FFE53-2AC6-45A4-AE98-C8E9E259DDF7}.Debug|x64.Build.0 = Debug|x64
 		{222FFE53-2AC6-45A4-AE98-C8E9E259DDF7}.Release|x64.ActiveCfg = Release|x64
 		{222FFE53-2AC6-45A4-AE98-C8E9E259DDF7}.Release|x64.Build.0 = Release|x64
+		{105348BC-E7EB-3AB0-A207-34C30D61E683}.Debug|x64.ActiveCfg = Debug|x64
+		{105348BC-E7EB-3AB0-A207-34C30D61E683}.Debug|x64.Build.0 = Debug|x64
+		{105348BC-E7EB-3AB0-A207-34C30D61E683}.Release|x64.ActiveCfg = Release|x64
+		{105348BC-E7EB-3AB0-A207-34C30D61E683}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
