@@ -8,16 +8,19 @@
 #include <QLabel>
 #include <QPixmap>
 
+const int imageSize = 70;
+const int squareSize = 75;
+
 Piece::Piece(std::pair<int, int> position, bool isWhite, QWidget* parent) :
     QWidget(parent), position_(position), isWhite_(isWhite) {
-    setFixedSize(70, 70);
+    setFixedSize(imageSize, imageSize);
     imageLabel_ = new QLabel(this);
 };
 
 //Images from : https://greenchess.net/info.php?item=downloads
 void Piece::showPieceImage(const QString& imageFile) {
     QPixmap pixmap(imageFile);
-    imageLabel_->setPixmap(pixmap.scaled(70, 70, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    imageLabel_->setPixmap(pixmap.scaled(imageSize, imageSize, Qt::KeepAspectRatio, Qt::SmoothTransformation));
     imageLabel_->setAlignment(Qt::AlignCenter);
 }
 
@@ -59,8 +62,8 @@ void Piece::mouseReleaseEvent(QMouseEvent* event) {
 
         QPoint globalPos = event->globalPosition().toPoint();
         QPoint relativePos = parentWidget()->mapFromGlobal(globalPos);
-        int row = std::clamp(relativePos.y() / 75, 0, 7);
-        int col = std::clamp(relativePos.x() / 75, 0, 7);
+        int row = std::clamp(relativePos.y() / squareSize, 0, 7);
+        int col = std::clamp(relativePos.x() / squareSize, 0, 7);
         std::pair<int, int> squareUnderCursor = std::make_pair(row, col);
 
         std::vector<std::pair<int, int>> moves = calculateMoves();

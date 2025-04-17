@@ -9,6 +9,8 @@
 #include <QPushButton>
 #include <QDebug>
 
+const int squareSize = 75;
+
 ChessSquare::ChessSquare(std::pair<int, int> position, QWidget* parent) : QWidget(parent), position_(position) {
     QPalette pal = this->palette();
     if ((position_.first + position_.second) % 2 == 0) {
@@ -19,7 +21,7 @@ ChessSquare::ChessSquare(std::pair<int, int> position, QWidget* parent) : QWidge
     }
     this->setAutoFillBackground(true);
     this->setPalette(pal);
-    this->setFixedSize(75, 75);
+    this->setFixedSize(squareSize, squareSize);
 }
 
 void ChessSquare::addPiece(Piece* piece) {
