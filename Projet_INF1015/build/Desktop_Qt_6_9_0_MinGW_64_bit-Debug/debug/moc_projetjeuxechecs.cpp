@@ -156,7 +156,9 @@ template <> constexpr inline auto ProjetJeuxEchecs::qt_create_metaobjectdata<qt_
         "col",
         "onReset",
         "onChangeTurn",
-        "onDeletePieceFromVector"
+        "onDeletePieceFromVector",
+        "onKingAdded",
+        "onKingDeleted"
     };
 
     QtMocHelpers::UintData qt_methods {
@@ -184,6 +186,10 @@ template <> constexpr inline auto ProjetJeuxEchecs::qt_create_metaobjectdata<qt_
         QtMocHelpers::SlotData<void(Piece *)>(16, 2, QMC::AccessPrivate, QMetaType::Void, {{
             { 0x80000000 | 3, 4 },
         }}),
+        // Slot 'onKingAdded'
+        QtMocHelpers::SlotData<void()>(17, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'onKingDeleted'
+        QtMocHelpers::SlotData<void()>(18, 2, QMC::AccessPrivate, QMetaType::Void),
     };
     QtMocHelpers::UintData qt_properties {
     };
@@ -214,6 +220,8 @@ void ProjetJeuxEchecs::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int
         case 4: _t->onReset(); break;
         case 5: _t->onChangeTurn(); break;
         case 6: _t->onDeletePieceFromVector((*reinterpret_cast< std::add_pointer_t<Piece*>>(_a[1]))); break;
+        case 7: _t->onKingAdded(); break;
+        case 8: _t->onKingDeleted(); break;
         default: ;
         }
     }
@@ -275,14 +283,14 @@ int ProjetJeuxEchecs::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 7)
+        if (_id < 9)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 7;
+        _id -= 9;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 7)
+        if (_id < 9)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 7;
+        _id -= 9;
     }
     return _id;
 }

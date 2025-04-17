@@ -198,4 +198,101 @@ void Piece::changeTurn()
 {
     QMetaObject::activate(this, &staticMetaObject, 3, nullptr);
 }
+namespace {
+struct qt_meta_tag_ZN4KingE_t {};
+} // unnamed namespace
+
+template <> constexpr inline auto King::qt_create_metaobjectdata<qt_meta_tag_ZN4KingE_t>()
+{
+    namespace QMC = QtMocConstants;
+    QtMocHelpers::StringRefStorage qt_stringData {
+        "King",
+        "kingAdded",
+        "",
+        "kingDeleted"
+    };
+
+    QtMocHelpers::UintData qt_methods {
+        // Signal 'kingAdded'
+        QtMocHelpers::SignalData<void()>(1, 2, QMC::AccessPublic, QMetaType::Void),
+        // Signal 'kingDeleted'
+        QtMocHelpers::SignalData<void()>(3, 2, QMC::AccessPublic, QMetaType::Void),
+    };
+    QtMocHelpers::UintData qt_properties {
+    };
+    QtMocHelpers::UintData qt_enums {
+    };
+    return QtMocHelpers::metaObjectData<King, qt_meta_tag_ZN4KingE_t>(QMC::MetaObjectFlag{}, qt_stringData,
+            qt_methods, qt_properties, qt_enums);
+}
+Q_CONSTINIT const QMetaObject King::staticMetaObject = { {
+    QMetaObject::SuperData::link<Piece::staticMetaObject>(),
+    qt_staticMetaObjectStaticContent<qt_meta_tag_ZN4KingE_t>.stringdata,
+    qt_staticMetaObjectStaticContent<qt_meta_tag_ZN4KingE_t>.data,
+    qt_static_metacall,
+    nullptr,
+    qt_staticMetaObjectRelocatingContent<qt_meta_tag_ZN4KingE_t>.metaTypes,
+    nullptr
+} };
+
+void King::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+{
+    auto *_t = static_cast<King *>(_o);
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        switch (_id) {
+        case 0: _t->kingAdded(); break;
+        case 1: _t->kingDeleted(); break;
+        default: ;
+        }
+    }
+    if (_c == QMetaObject::IndexOfMethod) {
+        if (QtMocHelpers::indexOfMethod<void (King::*)()>(_a, &King::kingAdded, 0))
+            return;
+        if (QtMocHelpers::indexOfMethod<void (King::*)()>(_a, &King::kingDeleted, 1))
+            return;
+    }
+}
+
+const QMetaObject *King::metaObject() const
+{
+    return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
+}
+
+void *King::qt_metacast(const char *_clname)
+{
+    if (!_clname) return nullptr;
+    if (!strcmp(_clname, qt_staticMetaObjectStaticContent<qt_meta_tag_ZN4KingE_t>.strings))
+        return static_cast<void*>(this);
+    return Piece::qt_metacast(_clname);
+}
+
+int King::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+{
+    _id = Piece::qt_metacall(_c, _id, _a);
+    if (_id < 0)
+        return _id;
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        if (_id < 2)
+            qt_static_metacall(this, _c, _id, _a);
+        _id -= 2;
+    }
+    if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        if (_id < 2)
+            *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
+        _id -= 2;
+    }
+    return _id;
+}
+
+// SIGNAL 0
+void King::kingAdded()
+{
+    QMetaObject::activate(this, &staticMetaObject, 0, nullptr);
+}
+
+// SIGNAL 1
+void King::kingDeleted()
+{
+    QMetaObject::activate(this, &staticMetaObject, 1, nullptr);
+}
 QT_WARNING_POP

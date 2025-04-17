@@ -266,6 +266,10 @@ King::King(std::pair<int, int> position, bool isWhite, QWidget* parent) :
     showPieceImage(imageFile);
 }
 
+King::~King(){
+    emit kingDeleted();
+}
+
 std::vector<std::pair<int, int>> King::calculateMoves() {
     std::vector<std::pair<int, int>> moves;
 

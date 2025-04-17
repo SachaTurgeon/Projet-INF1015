@@ -54,6 +54,8 @@ private slots:
     void onReset();
     void onChangeTurn();
     void onDeletePieceFromVector(Piece* piece);
+    void onKingAdded();
+    void onKingDeleted();
 
 private:
     Ui::ProjetJeuxEchecsClass *ui;
@@ -65,4 +67,12 @@ private:
     bool isWhiteTurn_ = true;
     QLabel* turnLabel = new QLabel("White turn", this);
     void addPieceByName(std::string& typeName, std::pair<int, int> pos, bool isWhite, ChessSquare* square);
+    int kingCount_ = 0;
+};
+
+class TooManyKingsException: public std::exception{
+public:
+    const char* what() const noexcept override {
+        return "Erreur: trop de roi, il ne peut avoir plus d'un roi par côté";
+    }
 };

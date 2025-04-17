@@ -104,10 +104,17 @@ private:
 
 class King : public Piece
 {
+    Q_OBJECT
+
 public:
 	King(std::pair<int, int> position, bool isWhite, QWidget* parent = nullptr);
     std::vector<std::pair<int, int>> calculateMoves() override;
     std::string getClassName() override { return "King"; }
+    ~King();
+
+signals:
+    void kingAdded();
+    void kingDeleted();
 
 private:
 

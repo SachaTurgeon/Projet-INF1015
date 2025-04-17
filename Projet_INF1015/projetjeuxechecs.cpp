@@ -7,6 +7,7 @@
 #include <QColor>
 #include <utility>
 #include <QPushButton>
+#include <QDebug>
 
 ChessSquare::ChessSquare(std::pair<int, int> position, QWidget* parent) : QWidget(parent), position_(position) {
     QPalette pal = this->palette();
@@ -55,6 +56,9 @@ void ProjetJeuxEchecs::addPieceToGrid(std::pair<int, int> position, bool isWhite
     if (King* king = dynamic_cast<King*>(piece)) {
         if (king->getIsWhite()) { whiteKing = king; }
         else { blackKing = king; }
+        connect(king, &King::kingAdded, this, &ProjetJeuxEchecs::onKingAdded);
+        connect(king, &King::kingDeleted, this, &ProjetJeuxEchecs::onKingDeleted);
+        emit king->kingAdded();
     }
 }
 
@@ -89,7 +93,12 @@ void ProjetJeuxEchecs::setNormalGame(int row, int col, ChessSquare* square) {
         addPieceToGrid<Queen>(pos, isWhite, square);
         break;
     case 4:
-        addPieceToGrid<King>(pos, isWhite, square);
+        try {
+            addPieceToGrid<King>(pos, isWhite, square);
+        }
+        catch (const TooManyKingsException& e) {
+            qDebug() << e.what();
+        }
         break;
     }
 }
@@ -115,7 +124,12 @@ void ProjetJeuxEchecs::addPieceByName(std::string& typeName, std::pair<int, int>
         addPieceToGrid<Queen>(pos, isWhite, square);
     }
     else {
-        addPieceToGrid<King>(pos, isWhite, square);
+        try {
+            addPieceToGrid<King>(pos, isWhite, square);
+        }
+        catch (const TooManyKingsException& e) {
+            qDebug() << e.what();
+        }
     }
 }
 
@@ -209,6 +223,17 @@ void ProjetJeuxEchecs::onReset() {
 void ProjetJeuxEchecs::onDeletePieceFromVector(Piece* piece) {
     std::vector<Piece*>& vector = piece->getIsWhite() ? whitePieces : blackPieces;
     vector.erase(std::remove(vector.begin(), vector.end(), piece), vector.end());
+}
+
+void ProjetJeuxEchecs::onKingAdded() {
+    if (kingCount_ >= 2){
+        throw TooManyKingsException();
+    }
+    kingCount_++;
+}
+
+void ProjetJeuxEchecs::onKingDeleted() {
+    kingCount_--;
 }
 
 void ProjetJeuxEchecs::setGrid(QGridLayout* grid) {
