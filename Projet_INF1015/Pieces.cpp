@@ -65,9 +65,11 @@ void Piece::mouseReleaseEvent(QMouseEvent* event) {
 
         std::vector<std::pair<int, int>> moves = calculateMoves();
         auto it = std::find(moves.begin(), moves.end(), squareUnderCursor);
-        if (it != moves.end()) {
+        if ((it != moves.end()) && (isWhiteTurn_ == isWhite_)) {
             position_ = std::make_pair(row, col);
             hasMoved_ = true;
+            isWhiteTurn_ = !isWhiteTurn_;
+            emit changeTurn();
         }
 
         emit pieceSet(this, position_);

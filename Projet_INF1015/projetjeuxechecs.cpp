@@ -52,6 +52,7 @@ void ProjetJeuxEchecs::addPieceToGrid(std::pair<int, int> position, bool isWhite
     connect(piece, &Piece::pieceRemove, this, &ProjetJeuxEchecs::onPieceRemove);
     connect(piece, &Piece::pieceSet, this, &ProjetJeuxEchecs::onPieceSet);
     connect(piece, &Piece::requestPieceOnSquare, this, &ProjetJeuxEchecs::onPieceOnSquareRequest);
+    connect(piece, &Piece::changeTurn, this, &ProjetJeuxEchecs::onChangeTurn);
     connect(this, &ProjetJeuxEchecs::sendPieceOnSquare, piece, &Piece::getPieceOnSquare);
     square->addPiece(piece);
     if (isWhite) { whitePieces.push_back(piece); }
@@ -106,6 +107,20 @@ void ProjetJeuxEchecs::onPieceOnSquareRequest(int row, int col) {
     emit sendPieceOnSquare(squaresVector[row][col]->getPiece());
 }
 
+void ProjetJeuxEchecs::onChangeTurn() {
+    isWhiteTurn_ = !isWhiteTurn_;
+    if (isWhiteTurn_) { turnLabel->setText("White turn"); }
+    else { turnLabel->setText("Black turn"); }
+    for (int row = 0; row < 8; ++row) {
+        for (int col = 0; col < 8; ++col) {
+            ChessSquare* square = squaresVector[row][col];
+            if (square->getPiece()) {
+                square->getPiece()->changeIsWhiteTurn();
+            }
+        }
+    }
+}
+
 void ProjetJeuxEchecs::onReset() {
     for (int row = 0; row < 8; ++row) {
         for (int col = 0; col < 8; ++col) {
@@ -145,12 +160,14 @@ void ProjetJeuxEchecs::setup() {
     QPushButton* resetButton = new QPushButton("Reset Board", this);
     connect(resetButton, &QPushButton::clicked, this, &ProjetJeuxEchecs::onReset);
 
-
     QVBoxLayout* mainLayout = new QVBoxLayout();
     mainLayout->addWidget(resetButton);
     mainLayout->addWidget(chessBoard);
+    mainLayout->addWidget(turnLabel);
     mainLayout->setAlignment(resetButton, Qt::AlignHCenter);
     mainLayout->setAlignment(chessBoard, Qt::AlignHCenter);
+    mainLayout->setAlignment(turnLabel, Qt::AlignHCenter);
+
 
     QWidget* centralWidget = new QWidget(this);
     centralWidget->setLayout(mainLayout);

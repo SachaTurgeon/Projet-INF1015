@@ -47,6 +47,7 @@ private slots:
     void onPieceSet(Piece* piece, std::pair<int, int> newPosition);
     void onPieceOnSquareRequest(int row, int col);
     void onReset();
+    void onChangeTurn();
 
 private:
     Ui::ProjetJeuxEchecsClass *ui;
@@ -55,4 +56,6 @@ private:
     template <typename T>
     void addPieceToGrid(std::pair<int, int> position, bool isWhite, ChessSquare* square);
     void setNormalGame(int row, int col, ChessSquare* square);
+    bool isWhiteTurn_ = true;
+    QLabel* turnLabel = new QLabel("White turn", this);
 };

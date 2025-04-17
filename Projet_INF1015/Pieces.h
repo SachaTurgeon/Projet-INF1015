@@ -18,12 +18,14 @@ public:
 	void mouseMoveEvent(QMouseEvent* event) override;
 	void mouseReleaseEvent(QMouseEvent* event) override;
 	void showPieceImage(const QString& imageFile);
-	bool getIsWhite() { return isWhite_; }
+    bool getIsWhite() { return isWhite_; }
+    void changeIsWhiteTurn() { isWhiteTurn_ = !isWhiteTurn_; }
 
 signals:
 	void pieceRemove(Piece* piece);
 	void pieceSet(Piece* piece, std::pair<int, int> newPosition);
 	void requestPieceOnSquare(int row, int col);
+    void changeTurn();
 
 public slots:
 	void getPieceOnSquare(Piece* piece);
@@ -38,6 +40,7 @@ protected:
 private:
 	bool isDragging_ = false;
 	QPoint offset_;
+    bool isWhiteTurn_ = true;
 };
 
 class Pawn : public Piece
