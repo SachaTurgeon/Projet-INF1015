@@ -39,10 +39,18 @@ template <> constexpr inline auto ChessSquare::qt_create_metaobjectdata<qt_meta_
 {
     namespace QMC = QtMocConstants;
     QtMocHelpers::StringRefStorage qt_stringData {
-        "ChessSquare"
+        "ChessSquare",
+        "deletePiece",
+        "",
+        "Piece*",
+        "piece"
     };
 
     QtMocHelpers::UintData qt_methods {
+        // Signal 'deletePiece'
+        QtMocHelpers::SignalData<void(Piece *)>(1, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { 0x80000000 | 3, 4 },
+        }}),
     };
     QtMocHelpers::UintData qt_properties {
     };
@@ -64,10 +72,28 @@ Q_CONSTINIT const QMetaObject ChessSquare::staticMetaObject = { {
 void ChessSquare::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     auto *_t = static_cast<ChessSquare *>(_o);
-    (void)_t;
-    (void)_c;
-    (void)_id;
-    (void)_a;
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        switch (_id) {
+        case 0: _t->deletePiece((*reinterpret_cast< std::add_pointer_t<Piece*>>(_a[1]))); break;
+        default: ;
+        }
+    }
+    if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        switch (_id) {
+        default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
+        case 0:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
+            case 0:
+                *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType::fromType< Piece* >(); break;
+            }
+            break;
+        }
+    }
+    if (_c == QMetaObject::IndexOfMethod) {
+        if (QtMocHelpers::indexOfMethod<void (ChessSquare::*)(Piece * )>(_a, &ChessSquare::deletePiece, 0))
+            return;
+    }
 }
 
 const QMetaObject *ChessSquare::metaObject() const
@@ -86,7 +112,25 @@ void *ChessSquare::qt_metacast(const char *_clname)
 int ChessSquare::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QWidget::qt_metacall(_c, _id, _a);
+    if (_id < 0)
+        return _id;
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        if (_id < 1)
+            qt_static_metacall(this, _c, _id, _a);
+        _id -= 1;
+    }
+    if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        if (_id < 1)
+            qt_static_metacall(this, _c, _id, _a);
+        _id -= 1;
+    }
     return _id;
+}
+
+// SIGNAL 0
+void ChessSquare::deletePiece(Piece * _t1)
+{
+    QMetaObject::activate<void>(this, &staticMetaObject, 0, nullptr, _t1);
 }
 namespace {
 struct qt_meta_tag_ZN16ProjetJeuxEchecsE_t {};
@@ -111,7 +155,8 @@ template <> constexpr inline auto ProjetJeuxEchecs::qt_create_metaobjectdata<qt_
         "row",
         "col",
         "onReset",
-        "onChangeTurn"
+        "onChangeTurn",
+        "onDeletePieceFromVector"
     };
 
     QtMocHelpers::UintData qt_methods {
@@ -135,6 +180,10 @@ template <> constexpr inline auto ProjetJeuxEchecs::qt_create_metaobjectdata<qt_
         QtMocHelpers::SlotData<void()>(14, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'onChangeTurn'
         QtMocHelpers::SlotData<void()>(15, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'onDeletePieceFromVector'
+        QtMocHelpers::SlotData<void(Piece *)>(16, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { 0x80000000 | 3, 4 },
+        }}),
     };
     QtMocHelpers::UintData qt_properties {
     };
@@ -164,6 +213,7 @@ void ProjetJeuxEchecs::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int
         case 3: _t->onPieceOnSquareRequest((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2]))); break;
         case 4: _t->onReset(); break;
         case 5: _t->onChangeTurn(); break;
+        case 6: _t->onDeletePieceFromVector((*reinterpret_cast< std::add_pointer_t<Piece*>>(_a[1]))); break;
         default: ;
         }
     }
@@ -185,6 +235,13 @@ void ProjetJeuxEchecs::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int
             }
             break;
         case 2:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
+            case 0:
+                *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType::fromType< Piece* >(); break;
+            }
+            break;
+        case 6:
             switch (*reinterpret_cast<int*>(_a[1])) {
             default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
             case 0:
@@ -218,14 +275,14 @@ int ProjetJeuxEchecs::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 6)
+        if (_id < 7)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 6;
+        _id -= 7;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 6)
+        if (_id < 7)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 6;
+        _id -= 7;
     }
     return _id;
 }

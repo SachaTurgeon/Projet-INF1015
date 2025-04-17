@@ -36,12 +36,7 @@ void ChessSquare::addPiece(Piece* piece) {
 }
 
 void ChessSquare::removePiece() {
-    if (piece_->getIsWhite()){
-        //remove piece form whitePieces
-    }
-    else {
-        //remove piece from blackPieces
-    }
+    emit deletePiece(piece_);
     delete piece_;
     setPieceNull();
 }
@@ -180,6 +175,11 @@ void ProjetJeuxEchecs::onReset() {
     }
 }
 
+void ProjetJeuxEchecs::onDeletePieceFromVector(Piece* piece) {
+    std::vector<Piece*>& vector = piece->getIsWhite() ? whitePieces : blackPieces;
+    vector.erase(std::remove(vector.begin(), vector.end(), piece), vector.end());
+}
+
 void ProjetJeuxEchecs::setGrid(QGridLayout* grid) {
     grid->setSpacing(0);
     grid->setContentsMargins(0, 0, 0, 0);
@@ -190,6 +190,7 @@ void ProjetJeuxEchecs::setGrid(QGridLayout* grid) {
     for (int row = 0; row < gridSize; row++) {
         for (int col =   0; col < gridSize; col++) {
             ChessSquare* square = new ChessSquare(std::make_pair(row, col), grid->parentWidget());
+            connect(square, &ChessSquare::deletePiece, this, &ProjetJeuxEchecs::onDeletePieceFromVector);
             grid->addWidget(square, row, col);
             squaresVector[row][col] = square;
             setNormalGame(row, col, square);

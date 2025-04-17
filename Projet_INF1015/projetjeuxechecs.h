@@ -22,6 +22,9 @@ public:
     Piece* getPiece() { return piece_; }
     void removePiece();
 
+signals:
+    void deletePiece(Piece* piece);
+
 private:
     Piece* piece_ = nullptr;
     std::pair<int, int> position_;
@@ -50,6 +53,7 @@ private slots:
     void onPieceOnSquareRequest(int row, int col);
     void onReset();
     void onChangeTurn();
+    void onDeletePieceFromVector(Piece* piece);
 
 private:
     Ui::ProjetJeuxEchecsClass *ui;
