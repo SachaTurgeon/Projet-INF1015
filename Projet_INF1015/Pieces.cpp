@@ -8,7 +8,7 @@
 #include <QLabel>
 #include <QPixmap>
 
-const int imageSize = 70;
+const int imageSize = 75;
 const int squareSize = 75;
 
 Piece::Piece(std::pair<int, int> position, bool isWhite, QWidget* parent) :
