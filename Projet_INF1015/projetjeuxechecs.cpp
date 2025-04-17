@@ -57,6 +57,10 @@ void ProjetJeuxEchecs::addPieceToGrid(std::pair<int, int> position, bool isWhite
     square->addPiece(piece);
     if (isWhite) { whitePieces.push_back(piece); }
     else { blackPieces.push_back(piece); }
+    if (King* king = dynamic_cast<King*>(piece)) {
+        if (king->getIsWhite()) { whiteKing = king; }
+        else { blackKing = king; }
+    }
 }
 
 void ProjetJeuxEchecs::setNormalGame(int row, int col, ChessSquare* square) {
@@ -99,8 +103,49 @@ void ProjetJeuxEchecs::onPieceRemove(Piece* piece) {
     squaresVector[piece->getPosition().first][piece->getPosition().second]->setPieceNull();
 }
 
-void ProjetJeuxEchecs::onPieceSet(Piece* piece, std::pair<int, int> newPosition) {
+void ProjetJeuxEchecs::onPieceSet(Piece* piece, std::pair<int, int> newPosition, std::pair<int, int> oldPosition, bool hasMoved) {
     squaresVector[newPosition.first][newPosition.second]->addPiece(piece);
+    if (newPosition != oldPosition) {
+        piece->setHasMovedTrue();
+    }
+    if (piece->getIsWhite()) {
+        std::set<std::pair<int, int>> setMoves;
+        for (auto piece : blackPieces) {
+            std::vector<std::pair<int, int>> vectorMoves;
+            vectorMoves = piece->calculateMoves();
+            setMoves.insert(vectorMoves.begin(), vectorMoves.end());
+        }
+        for (auto move : setMoves) {
+            if (move == whiteKing->getPosition()){
+                squaresVector[newPosition.first][newPosition.second]->setPieceNull();
+                squaresVector[oldPosition.first][oldPosition.second]->addPiece(piece);
+                onChangeTurn();
+                if (!hasMoved) {
+                    piece->setHasMovedFalse();
+                }
+                break;
+            }
+        }
+    }
+    else {
+        std::set<std::pair<int, int>> setMoves;
+        for (auto piece : whitePieces) {
+            std::vector<std::pair<int, int>> vectorMoves;
+            vectorMoves = piece->calculateMoves();
+            setMoves.insert(vectorMoves.begin(), vectorMoves.end());
+        }
+        for (auto move : setMoves) {
+            if (move == blackKing->getPosition()){
+                squaresVector[newPosition.first][newPosition.second]->setPieceNull();
+                squaresVector[oldPosition.first][oldPosition.second]->addPiece(piece);
+                onChangeTurn();
+                if (!hasMoved) {
+                    piece->setHasMovedFalse();
+                }
+                break;
+            }
+        }
+    }
 }
 
 void ProjetJeuxEchecs::onPieceOnSquareRequest(int row, int col) {

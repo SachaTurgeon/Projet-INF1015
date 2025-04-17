@@ -38,13 +38,15 @@ public:
     std::vector<std::vector<ChessSquare*>> squaresVector;
     std::vector<Piece*> whitePieces;
     std::vector<Piece*> blackPieces;
+    Piece* whiteKing;
+    Piece* blackKing;
 
 signals:
     void sendPieceOnSquare(Piece* piece);
 
 private slots:
     void onPieceRemove(Piece* piece);
-    void onPieceSet(Piece* piece, std::pair<int, int> newPosition);
+    void onPieceSet(Piece* piece, std::pair<int, int> newPosition, std::pair<int, int> oldPosition, bool hasMoved);
     void onPieceOnSquareRequest(int row, int col);
     void onReset();
     void onChangeTurn();

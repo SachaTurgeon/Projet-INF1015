@@ -105,6 +105,8 @@ template <> constexpr inline auto ProjetJeuxEchecs::qt_create_metaobjectdata<qt_
         "onPieceSet",
         "std::pair<int,int>",
         "newPosition",
+        "oldPosition",
+        "hasMoved",
         "onPieceOnSquareRequest",
         "row",
         "col",
@@ -122,17 +124,17 @@ template <> constexpr inline auto ProjetJeuxEchecs::qt_create_metaobjectdata<qt_
             { 0x80000000 | 3, 4 },
         }}),
         // Slot 'onPieceSet'
-        QtMocHelpers::SlotData<void(Piece *, std::pair<int,int>)>(6, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { 0x80000000 | 3, 4 }, { 0x80000000 | 7, 8 },
+        QtMocHelpers::SlotData<void(Piece *, std::pair<int,int>, std::pair<int,int>, bool)>(6, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { 0x80000000 | 3, 4 }, { 0x80000000 | 7, 8 }, { 0x80000000 | 7, 9 }, { QMetaType::Bool, 10 },
         }}),
         // Slot 'onPieceOnSquareRequest'
-        QtMocHelpers::SlotData<void(int, int)>(9, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { QMetaType::Int, 10 }, { QMetaType::Int, 11 },
+        QtMocHelpers::SlotData<void(int, int)>(11, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::Int, 12 }, { QMetaType::Int, 13 },
         }}),
         // Slot 'onReset'
-        QtMocHelpers::SlotData<void()>(12, 2, QMC::AccessPrivate, QMetaType::Void),
+        QtMocHelpers::SlotData<void()>(14, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'onChangeTurn'
-        QtMocHelpers::SlotData<void()>(13, 2, QMC::AccessPrivate, QMetaType::Void),
+        QtMocHelpers::SlotData<void()>(15, 2, QMC::AccessPrivate, QMetaType::Void),
     };
     QtMocHelpers::UintData qt_properties {
     };
@@ -158,7 +160,7 @@ void ProjetJeuxEchecs::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int
         switch (_id) {
         case 0: _t->sendPieceOnSquare((*reinterpret_cast< std::add_pointer_t<Piece*>>(_a[1]))); break;
         case 1: _t->onPieceRemove((*reinterpret_cast< std::add_pointer_t<Piece*>>(_a[1]))); break;
-        case 2: _t->onPieceSet((*reinterpret_cast< std::add_pointer_t<Piece*>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<std::pair<int,int>>>(_a[2]))); break;
+        case 2: _t->onPieceSet((*reinterpret_cast< std::add_pointer_t<Piece*>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<std::pair<int,int>>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<std::pair<int,int>>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<bool>>(_a[4]))); break;
         case 3: _t->onPieceOnSquareRequest((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2]))); break;
         case 4: _t->onReset(); break;
         case 5: _t->onChangeTurn(); break;

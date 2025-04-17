@@ -20,10 +20,13 @@ public:
 	void showPieceImage(const QString& imageFile);
     bool getIsWhite() { return isWhite_; }
     void changeIsWhiteTurn() { isWhiteTurn_ = !isWhiteTurn_; }
+    void setHasMovedTrue() { hasMoved_ = true; }
+    void setHasMovedFalse() { hasMoved_ = false; }
+
 
 signals:
 	void pieceRemove(Piece* piece);
-	void pieceSet(Piece* piece, std::pair<int, int> newPosition);
+    void pieceSet(Piece* piece, std::pair<int, int> newPosition, std::pair<int, int> oldPosition, bool hasMoved);
 	void requestPieceOnSquare(int row, int col);
     void changeTurn();
 

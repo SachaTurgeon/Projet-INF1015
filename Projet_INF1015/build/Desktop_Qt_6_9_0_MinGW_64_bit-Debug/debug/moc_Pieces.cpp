@@ -47,6 +47,8 @@ template <> constexpr inline auto Piece::qt_create_metaobjectdata<qt_meta_tag_ZN
         "pieceSet",
         "std::pair<int,int>",
         "newPosition",
+        "oldPosition",
+        "hasMoved",
         "requestPieceOnSquare",
         "row",
         "col",
@@ -60,17 +62,17 @@ template <> constexpr inline auto Piece::qt_create_metaobjectdata<qt_meta_tag_ZN
             { 0x80000000 | 3, 4 },
         }}),
         // Signal 'pieceSet'
-        QtMocHelpers::SignalData<void(Piece *, std::pair<int,int>)>(5, 2, QMC::AccessPublic, QMetaType::Void, {{
-            { 0x80000000 | 3, 4 }, { 0x80000000 | 6, 7 },
+        QtMocHelpers::SignalData<void(Piece *, std::pair<int,int>, std::pair<int,int>, bool)>(5, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { 0x80000000 | 3, 4 }, { 0x80000000 | 6, 7 }, { 0x80000000 | 6, 8 }, { QMetaType::Bool, 9 },
         }}),
         // Signal 'requestPieceOnSquare'
-        QtMocHelpers::SignalData<void(int, int)>(8, 2, QMC::AccessPublic, QMetaType::Void, {{
-            { QMetaType::Int, 9 }, { QMetaType::Int, 10 },
+        QtMocHelpers::SignalData<void(int, int)>(10, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::Int, 11 }, { QMetaType::Int, 12 },
         }}),
         // Signal 'changeTurn'
-        QtMocHelpers::SignalData<void()>(11, 2, QMC::AccessPublic, QMetaType::Void),
+        QtMocHelpers::SignalData<void()>(13, 2, QMC::AccessPublic, QMetaType::Void),
         // Slot 'getPieceOnSquare'
-        QtMocHelpers::SlotData<void(Piece *)>(12, 2, QMC::AccessPublic, QMetaType::Void, {{
+        QtMocHelpers::SlotData<void(Piece *)>(14, 2, QMC::AccessPublic, QMetaType::Void, {{
             { 0x80000000 | 3, 4 },
         }}),
     };
@@ -97,7 +99,7 @@ void Piece::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void 
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
         case 0: _t->pieceRemove((*reinterpret_cast< std::add_pointer_t<Piece*>>(_a[1]))); break;
-        case 1: _t->pieceSet((*reinterpret_cast< std::add_pointer_t<Piece*>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<std::pair<int,int>>>(_a[2]))); break;
+        case 1: _t->pieceSet((*reinterpret_cast< std::add_pointer_t<Piece*>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<std::pair<int,int>>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<std::pair<int,int>>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<bool>>(_a[4]))); break;
         case 2: _t->requestPieceOnSquare((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2]))); break;
         case 3: _t->changeTurn(); break;
         case 4: _t->getPieceOnSquare((*reinterpret_cast< std::add_pointer_t<Piece*>>(_a[1]))); break;
@@ -133,7 +135,7 @@ void Piece::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void 
     if (_c == QMetaObject::IndexOfMethod) {
         if (QtMocHelpers::indexOfMethod<void (Piece::*)(Piece * )>(_a, &Piece::pieceRemove, 0))
             return;
-        if (QtMocHelpers::indexOfMethod<void (Piece::*)(Piece * , std::pair<int,int> )>(_a, &Piece::pieceSet, 1))
+        if (QtMocHelpers::indexOfMethod<void (Piece::*)(Piece * , std::pair<int,int> , std::pair<int,int> , bool )>(_a, &Piece::pieceSet, 1))
             return;
         if (QtMocHelpers::indexOfMethod<void (Piece::*)(int , int )>(_a, &Piece::requestPieceOnSquare, 2))
             return;
@@ -180,9 +182,9 @@ void Piece::pieceRemove(Piece * _t1)
 }
 
 // SIGNAL 1
-void Piece::pieceSet(Piece * _t1, std::pair<int,int> _t2)
+void Piece::pieceSet(Piece * _t1, std::pair<int,int> _t2, std::pair<int,int> _t3, bool _t4)
 {
-    QMetaObject::activate<void>(this, &staticMetaObject, 1, nullptr, _t1, _t2);
+    QMetaObject::activate<void>(this, &staticMetaObject, 1, nullptr, _t1, _t2, _t3, _t4);
 }
 
 // SIGNAL 2
