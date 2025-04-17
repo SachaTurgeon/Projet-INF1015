@@ -23,7 +23,7 @@ public:
     void removePiece();
 
 signals:
-    void deletePiece(Piece* piece);
+    void deletePieceFromVector(Piece* piece);
 
 private:
     Piece* piece_ = nullptr;
@@ -64,4 +64,5 @@ private:
     void setNormalGame(int row, int col, ChessSquare* square);
     bool isWhiteTurn_ = true;
     QLabel* turnLabel = new QLabel("White turn", this);
+    void addPieceByName(std::string& typeName, std::pair<int, int> pos, bool isWhite, ChessSquare* square);
 };

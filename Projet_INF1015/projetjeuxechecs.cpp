@@ -36,7 +36,7 @@ void ChessSquare::addPiece(Piece* piece) {
 }
 
 void ChessSquare::removePiece() {
-    emit deletePiece(piece_);
+    emit deletePieceFromVector(piece_);
     delete piece_;
     setPieceNull();
 }
@@ -98,7 +98,32 @@ void ProjetJeuxEchecs::onPieceRemove(Piece* piece) {
     squaresVector[piece->getPosition().first][piece->getPosition().second]->setPieceNull();
 }
 
+void ProjetJeuxEchecs::addPieceByName(std::string& typeName, std::pair<int, int> pos, bool isWhite, ChessSquare* square) {
+    if (typeName == "Pawn") {
+        addPieceToGrid<Pawn>(pos, isWhite, square);
+    }
+    else if (typeName == "Rook") {
+        addPieceToGrid<Rook>(pos, isWhite, square);
+    }
+    else if (typeName == "Knight") {
+        addPieceToGrid<Knight>(pos, isWhite, square);
+    }
+    else if (typeName == "Bishop") {
+        addPieceToGrid<Bishop>(pos, isWhite, square);
+    }
+    else if (typeName == "Queen") {
+        addPieceToGrid<Queen>(pos, isWhite, square);
+    }
+    else {
+        addPieceToGrid<King>(pos, isWhite, square);
+    }
+}
+
 void ProjetJeuxEchecs::onPieceSet(Piece* piece, std::pair<int, int> newPosition, std::pair<int, int> oldPosition, bool hasMoved) {
+    std::string otherClassName = "";
+    if (squaresVector[newPosition.first][newPosition.second]->getPiece()) {
+        otherClassName = squaresVector[newPosition.first][newPosition.second]->getPiece()->getClassName();
+    }
     squaresVector[newPosition.first][newPosition.second]->addPiece(piece);
     if (newPosition != oldPosition) {
         piece->setHasMovedTrue();
@@ -118,6 +143,9 @@ void ProjetJeuxEchecs::onPieceSet(Piece* piece, std::pair<int, int> newPosition,
                 if (!hasMoved) {
                     piece->setHasMovedFalse();
                 }
+                if (otherClassName != "") {
+                    addPieceByName(otherClassName, newPosition, !piece->getIsWhite(), squaresVector[newPosition.first][newPosition.second]);
+                }
                 break;
             }
         }
@@ -130,12 +158,15 @@ void ProjetJeuxEchecs::onPieceSet(Piece* piece, std::pair<int, int> newPosition,
             setMoves.insert(vectorMoves.begin(), vectorMoves.end());
         }
         for (auto move : setMoves) {
-            if (move == blackKing->getPosition()){
+            if (move == blackKing->getPosition()) {
                 squaresVector[newPosition.first][newPosition.second]->setPieceNull();
                 squaresVector[oldPosition.first][oldPosition.second]->addPiece(piece);
                 onChangeTurn();
                 if (!hasMoved) {
                     piece->setHasMovedFalse();
+                }
+                if (otherClassName != "") {
+                    addPieceByName(otherClassName, newPosition, !piece->getIsWhite(), squaresVector[newPosition.first][newPosition.second]);
                 }
                 break;
             }
@@ -190,7 +221,7 @@ void ProjetJeuxEchecs::setGrid(QGridLayout* grid) {
     for (int row = 0; row < gridSize; row++) {
         for (int col =   0; col < gridSize; col++) {
             ChessSquare* square = new ChessSquare(std::make_pair(row, col), grid->parentWidget());
-            connect(square, &ChessSquare::deletePiece, this, &ProjetJeuxEchecs::onDeletePieceFromVector);
+            connect(square, &ChessSquare::deletePieceFromVector, this, &ProjetJeuxEchecs::onDeletePieceFromVector);
             grid->addWidget(square, row, col);
             squaresVector[row][col] = square;
             setNormalGame(row, col, square);

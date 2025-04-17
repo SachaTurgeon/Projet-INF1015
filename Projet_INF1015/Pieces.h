@@ -13,7 +13,8 @@ public:
 	Piece(std::pair<int, int> position, bool isWhite, QWidget* parent = nullptr);
 	void setPosition(std::pair<int, int> position) { position_ = position; }
 	std::pair<int, int> getPosition() { return position_; }
-	virtual std::vector<std::pair<int, int>> calculateMoves() { return {}; }
+    virtual std::vector<std::pair<int, int>> calculateMoves() { return {}; }
+    virtual std::string getClassName() { return "Piece"; }
 	void mousePressEvent(QMouseEvent* event) override;
 	void mouseMoveEvent(QMouseEvent* event) override;
 	void mouseReleaseEvent(QMouseEvent* event) override;
@@ -35,7 +36,7 @@ public slots:
 
 protected:
 	QLabel* imageLabel_;
-	Piece* otherPiece_ = nullptr;
+	Piece* otherPiece_ = nullptr;    
 	std::pair<int, int> position_;
 	bool hasMoved_ = false;
 	bool isWhite_;
@@ -51,6 +52,8 @@ class Pawn : public Piece
 public:
 	Pawn(std::pair<int, int> position, bool isWhite, QWidget* parent = nullptr);
 	std::vector<std::pair<int, int>> calculateMoves() override;
+    std::string getClassName() override { return "Pawn"; }
+
 private:
 
 };
@@ -60,6 +63,8 @@ class Knight : public Piece
 public:
 	Knight(std::pair<int, int> position, bool isWhite, QWidget* parent = nullptr);
 	std::vector<std::pair<int, int>> calculateMoves() override;
+    std::string getClassName() override { return "Knight"; }
+
 private:
 
 };
@@ -69,6 +74,8 @@ class Bishop : public Piece
 public:
 	Bishop(std::pair<int, int> position, bool isWhite, QWidget* parent = nullptr);
 	std::vector<std::pair<int, int>> calculateMoves() override;
+    std::string getClassName() override { return "Bishop"; }
+
 private:
 
 };
@@ -77,7 +84,9 @@ class Rook : public Piece
 {
 public:
 	Rook(std::pair<int, int> position, bool isWhite, QWidget* parent = nullptr);
-	std::vector<std::pair<int, int>> calculateMoves() override;
+    std::vector<std::pair<int, int>> calculateMoves() override;
+    std::string getClassName() override { return "Rook"; }
+
 private:
 
 };
@@ -86,7 +95,9 @@ class Queen : public Piece
 {
 public:
 	Queen(std::pair<int, int> position, bool isWhite, QWidget* parent = nullptr);
-	std::vector<std::pair<int, int>> calculateMoves() override;
+    std::vector<std::pair<int, int>> calculateMoves() override;
+    std::string getClassName() override { return "Queen"; }
+
 private:
 
 };
@@ -95,7 +106,9 @@ class King : public Piece
 {
 public:
 	King(std::pair<int, int> position, bool isWhite, QWidget* parent = nullptr);
-	std::vector<std::pair<int, int>> calculateMoves() override;
+    std::vector<std::pair<int, int>> calculateMoves() override;
+    std::string getClassName() override { return "King"; }
+
 private:
 
 };

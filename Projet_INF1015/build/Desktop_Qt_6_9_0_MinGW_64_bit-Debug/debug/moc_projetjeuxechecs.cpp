@@ -40,14 +40,14 @@ template <> constexpr inline auto ChessSquare::qt_create_metaobjectdata<qt_meta_
     namespace QMC = QtMocConstants;
     QtMocHelpers::StringRefStorage qt_stringData {
         "ChessSquare",
-        "deletePiece",
+        "deletePieceFromVector",
         "",
         "Piece*",
         "piece"
     };
 
     QtMocHelpers::UintData qt_methods {
-        // Signal 'deletePiece'
+        // Signal 'deletePieceFromVector'
         QtMocHelpers::SignalData<void(Piece *)>(1, 2, QMC::AccessPublic, QMetaType::Void, {{
             { 0x80000000 | 3, 4 },
         }}),
@@ -74,7 +74,7 @@ void ChessSquare::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
     auto *_t = static_cast<ChessSquare *>(_o);
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
-        case 0: _t->deletePiece((*reinterpret_cast< std::add_pointer_t<Piece*>>(_a[1]))); break;
+        case 0: _t->deletePieceFromVector((*reinterpret_cast< std::add_pointer_t<Piece*>>(_a[1]))); break;
         default: ;
         }
     }
@@ -91,7 +91,7 @@ void ChessSquare::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         }
     }
     if (_c == QMetaObject::IndexOfMethod) {
-        if (QtMocHelpers::indexOfMethod<void (ChessSquare::*)(Piece * )>(_a, &ChessSquare::deletePiece, 0))
+        if (QtMocHelpers::indexOfMethod<void (ChessSquare::*)(Piece * )>(_a, &ChessSquare::deletePieceFromVector, 0))
             return;
     }
 }
@@ -128,7 +128,7 @@ int ChessSquare::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void ChessSquare::deletePiece(Piece * _t1)
+void ChessSquare::deletePieceFromVector(Piece * _t1)
 {
     QMetaObject::activate<void>(this, &staticMetaObject, 0, nullptr, _t1);
 }
